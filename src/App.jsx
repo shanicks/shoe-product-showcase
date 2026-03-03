@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "./components/Header";
-import ShoeDisplay from "./components/ShoeDisplay";
+import ShoeDisplay from "./components/ShoeCanvas";
 import ProductInfo from "./components/ProductInfo";
 
 const colorThemes = {
   brown: {
-    bg: "from-[#5a2e12] via-[#7a3b16] to-[#3b1d0e]",
+    bg: "from-[#5a2e12] via-[#7a3b16] to-[#2E4156]",
     accent: "bg-orange-600 hover:bg-orange-700",
     image: "/shoe1.jpg",
   },
   green: {
-    bg: "from-[#0f2e1c] via-[#14532d] to-[#052e16]",
+    bg: "from-[#0f2e1c] via-[#14532d] to-[#D95A2D]",
     accent: "bg-green-600 hover:bg-green-700",
     image: "/shoe2.jpg",
   },
   red: {
-    bg: "from-[#3a0d0d] via-[#7f1d1d] to-[#2a0a0a]",
+    bg: "from-[#3a0d0d] via-[#7f1d1d] to-[#FC741E]",
     accent: "bg-red-600 hover:bg-red-700",
     image: "/shoe3.jpg",
   },
@@ -39,7 +39,7 @@ export default function App() {
         </h1>
 
         <div className="grid md:grid-cols-2 gap-10 items-center">
-          <ShoeDisplay image={theme.image} />
+          <ShoeDisplay />
 
           <ProductInfo
             accent={theme.accent}
