@@ -15,7 +15,7 @@ export default function ColorSelector({ selectedColor, setColor }) {
             selectedColor === color ? "border-white" : "border-transparent"
           } ${
             color === "brown"
-              ? "bg-orange-600"
+              ? "bg-black"
               : color === "green"
                 ? "bg-green-600"
                 : "bg-red-600"

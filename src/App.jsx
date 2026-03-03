@@ -6,8 +6,8 @@ import ProductInfo from "./components/ProductInfo";
 
 const colorThemes = {
   brown: {
-    bg: "from-[#5a2e12] via-[#7a3b16] to-[#2E4156]",
-    accent: "bg-orange-600 hover:bg-orange-700",
+    bg: "from-[#1E1F22] via-[#2A2C30] to-[#0F1012]",
+    accent: "bg-[#C9CED6] hover:bg-[#DDE2E8] text-red-900",
     image: "/shoe1.jpg",
   },
   green: {

@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import * as THREE from "three";
 
 function ShoeModel() {
-  const { scene } = useGLTF("/shoe1.glb");
+  const { scene } = useGLTF("/basketball_shoes.glb");
   const modelRef = useRef();
   useLayoutEffect(() => {
     if (!modelRef.current) return;
@@ -27,13 +27,13 @@ function ShoeModel() {
     <primitive
       ref={modelRef}
       object={scene}
-      scale={15}
+      scale={0.5}
       position={[0, -0.5, 0]}
     />
   );
 }
 
-useGLTF.preload("/shoe1.glb");
+useGLTF.preload("/basketball_shoes.glb");
 
 export default function ShoeCanvas() {
   return (
@@ -44,11 +44,11 @@ export default function ShoeCanvas() {
       transition={{ duration: 0.8 }}
     >
       <Canvas
-        camera={{ position: [0, 1, 5], fov: 45 }}
+        camera={{ position: [10, 10, 180], fov: 45 }}
         gl={{ antialias: true }}
       >
-        <ambientLight intensity={0.8} />
-        <directionalLight position={[5, 5, 5]} intensity={1} />
+        <ambientLight intensity={0.1} />
+        <directionalLight position={[5, 5, 5]} intensity={0.1} />
 
         <Suspense fallback={null}>
           <ShoeModel />

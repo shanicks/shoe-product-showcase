@@ -27,7 +27,7 @@ export default function ProductInfo({ accent, selectedColor, setColor }) {
       <ColorSelector selectedColor={selectedColor} setColor={setColor} />
 
       <div className="flex gap-4 pt-4">
-        <Button className={`${accent} text-white`}>Add to Cart</Button>
+        <Button className={`${accent}`}>Add to Cart</Button>
 
         <Button
           variant="outline"
