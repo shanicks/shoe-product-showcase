@@ -2,22 +2,25 @@ import { Search, ShoppingCart, User } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/5 border-b border-white/10">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <div className="font-bold text-xl tracking-widest">JORDAN</div>
+    <header className="absolute top-0 left-0 w-full z-50">
+      <div className="container mx-auto px-6 py-6 flex items-center justify-between">
+        {/* Logo */}
+        <div className="text-xl font-bold tracking-widest">KIXORA</div>
 
-        <nav className="hidden md:flex gap-8 text-sm tracking-wider">
-          <a href="#">HOME</a>
-          <a href="#">MAN</a>
-          <a href="#">WOMAN</a>
-          <a href="#">KIDS</a>
-          <a href="#">SALE</a>
+        {/* Navigation */}
+        <nav className="hidden md:flex gap-10 text-sm tracking-wide text-white/90">
+          <a className="hover:text-white transition">Home</a>
+          <a className="hover:text-white transition">Brands</a>
+          <a className="hover:text-white transition">Men</a>
+          <a className="hover:text-white transition">Women</a>
+          <a className="hover:text-white transition">About us</a>
         </nav>
 
-        <div className="flex gap-4">
-          <Search size={20} />
-          <ShoppingCart size={20} />
-          <User size={20} />
+        {/* Icons */}
+        <div className="flex gap-5 text-white/90">
+          <Search size={20} className="cursor-pointer hover:text-white" />
+          <ShoppingCart size={20} className="cursor-pointer hover:text-white" />
+          <User size={20} className="cursor-pointer hover:text-white" />
         </div>
       </div>
     </header>

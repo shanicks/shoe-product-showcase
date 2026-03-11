@@ -1,65 +1,75 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import {
   OrbitControls,
   useGLTF,
   Environment,
   ContactShadows,
 } from "@react-three/drei";
-import { Suspense, useRef, useLayoutEffect } from "react";
+import { Suspense, useRef, useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import * as THREE from "three";
 
-function ShoeModel() {
-  const { scene } = useGLTF("/basketball_shoes.glb");
+function ShoeModel({ isUserInteracting }) {
+  const { scene } = useGLTF("/sneaker_model2.glb");
   const modelRef = useRef();
-  useLayoutEffect(() => {
-    if (!modelRef.current) return;
 
-    // Compute bounding box
-    const box = new THREE.Box3().setFromObject(modelRef.current);
+  // Center model
+  useLayoutEffect(() => {
+    const box = new THREE.Box3().setFromObject(scene);
     const center = new THREE.Vector3();
     box.getCenter(center);
+    scene.position.sub(center);
+  }, [scene]);
 
-    // Reposition model so its center becomes (0,0,0)
-    modelRef.current.position.sub(center);
-  }, []);
+  // Auto rotation
+  useFrame((state) => {
+    if (!isUserInteracting && modelRef.current) {
+      modelRef.current.rotation.y += 0.003;
+    }
+
+    // subtle floating motion
+    if (modelRef.current) {
+      modelRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.05;
+    }
+  });
+
   return (
-    <primitive
-      ref={modelRef}
-      object={scene}
-      scale={0.5}
-      position={[0, -0.5, 0]}
-    />
+    <primitive ref={modelRef} object={scene} scale={30} position={[0, 0, 0]} />
   );
 }
 
-useGLTF.preload("/basketball_shoes.glb");
+useGLTF.preload("/sneaker_model2.glb");
 
 export default function ShoeCanvas() {
+  const [interacting, setInteracting] = useState(false);
+
   return (
     <motion.div
-      className="w-full h-[500px] cursor-grab active:cursor-grabbing"
+      className="w-full h-[80vh] cursor-grab active:cursor-grabbing"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <Canvas
-        camera={{ position: [10, 10, 180], fov: 45 }}
-        gl={{ antialias: true }}
-      >
-        <ambientLight intensity={0.1} />
-        <directionalLight position={[5, 5, 5]} intensity={0.1} />
+      <Canvas camera={{ position: [0, 20, 160], fov: 35 }}>
+        {/* Lighting setup (better for product showcase) */}
+        <ambientLight intensity={0.35} />
+
+        <directionalLight position={[120, 100, 80]} intensity={0.8} />
+
+        <directionalLight position={[-80, 40, -60]} intensity={0.6} />
 
         <Suspense fallback={null}>
-          <ShoeModel />
+          <ShoeModel isUserInteracting={interacting} />
+
           <Environment preset="studio" />
-          <ContactShadows
-            position={[0, -1.2, 0]}
+
+          {/* <ContactShadows
+            position={[0, -25, 0]}
             opacity={0.4}
-            scale={10}
-            blur={2}
-            far={4}
-          />
+            scale={40}
+            blur={3}
+            far={60}
+          /> */}
         </Suspense>
 
         <OrbitControls
@@ -68,6 +78,10 @@ export default function ShoeCanvas() {
           enableDamping
           dampingFactor={0.05}
           rotateSpeed={0.6}
+          onStart={() => setInteracting(true)}
+          onEnd={() => setInteracting(false)}
+          minPolarAngle={Math.PI / 2.5}
+          maxPolarAngle={Math.PI / 1.8}
         />
       </Canvas>
     </motion.div>
