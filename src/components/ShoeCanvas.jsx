@@ -45,7 +45,7 @@ export default function ShoeCanvas() {
 
   return (
     <motion.div
-      className="w-full h-[80vh] cursor-grab active:cursor-grabbing"
+      className="w-full h-[85vh] cursor-grab active:cursor-grabbing"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -54,9 +54,17 @@ export default function ShoeCanvas() {
         {/* Lighting setup (better for product showcase) */}
         <ambientLight intensity={0.35} />
 
-        <directionalLight position={[120, 100, 80]} intensity={0.8} />
+        <directionalLight
+          position={[120, 100, 80]}
+          intensity={0.3}
+          color="#FFD8A8"
+        />
 
-        <directionalLight position={[-80, 40, -60]} intensity={0.6} />
+        <directionalLight
+          position={[-80, 40, -60]}
+          intensity={0.2}
+          color="#FFD8A8"
+        />
 
         <Suspense fallback={null}>
           <ShoeModel isUserInteracting={interacting} />
