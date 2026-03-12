@@ -1,16 +1,18 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import {
-  OrbitControls,
-  useGLTF,
-  Environment,
-  ContactShadows,
-} from "@react-three/drei";
+import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
 import { Suspense, useRef, useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import * as THREE from "three";
+import { head } from "@vercel/blob";
+
+// const blob = await head(import.meta.env.VITE_BLOB_URL, {
+//   token: import.meta.env.VITE_READ_WRITE_TOKEN,
+// });
+
+const modelUrl = import.meta.env.VITE_BLOB_URL;
 
 function ShoeModel({ isUserInteracting }) {
-  const { scene } = useGLTF("/sneaker_model2.glb");
+  const { scene } = useGLTF(modelUrl);
   const modelRef = useRef();
 
   // Center model
@@ -38,7 +40,7 @@ function ShoeModel({ isUserInteracting }) {
   );
 }
 
-useGLTF.preload("/sneaker_model2.glb");
+useGLTF.preload(modelUrl);
 
 export default function ShoeCanvas() {
   const [interacting, setInteracting] = useState(false);
