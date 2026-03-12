@@ -1,9 +1,9 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
+import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
 import { Suspense, useRef, useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import * as THREE from "three";
-import { head } from "@vercel/blob";
+import ModelLoader from "./ModelLoader";
 
 // const blob = await head(import.meta.env.VITE_BLOB_URL, {
 //   token: import.meta.env.VITE_READ_WRITE_TOKEN,
@@ -11,9 +11,16 @@ import { head } from "@vercel/blob";
 
 const modelUrl = import.meta.env.VITE_BLOB_URL;
 
-function ShoeModel({ isUserInteracting }) {
+function ShoeModel({ isUserInteracting, onLoad }) {
   const { scene } = useGLTF(modelUrl);
   const modelRef = useRef();
+
+  // Call onLoad when model is ready
+  useLayoutEffect(() => {
+    if (scene && onLoad) {
+      onLoad();
+    }
+  }, [scene, onLoad]);
 
   // Center model
   useLayoutEffect(() => {
@@ -44,6 +51,7 @@ useGLTF.preload(modelUrl);
 
 export default function ShoeCanvas() {
   const [interacting, setInteracting] = useState(false);
+  const [modelLoaded, setModelLoaded] = useState(false);
 
   return (
     <motion.div
@@ -68,8 +76,17 @@ export default function ShoeCanvas() {
           color="#FFD8A8"
         />
 
-        <Suspense fallback={null}>
-          <ShoeModel isUserInteracting={interacting} />
+        <Suspense
+          fallback={
+            <Html fullScreen>
+              <ModelLoader isLoaded={modelLoaded} />
+            </Html>
+          }
+        >
+          <ShoeModel
+            isUserInteracting={interacting}
+            onLoad={() => setModelLoaded(true)}
+          />
 
           <Environment preset="studio" />
 
