@@ -6,16 +6,21 @@ export default function ModelLoader({ isLoaded }) {
       <motion.img
         src="/shoe_brown.png"
         alt="Loading..."
-        className="max-w-4xl max-h-4xl"
-        initial={{ opacity: 1, filter: "blur(20px)" }}
-        animate={
-          isLoaded
-            ? { opacity: 0, filter: "blur(0px)" }
-            : { opacity: 1, filter: "blur(20px)" }
-        }
+        className="max-w-3xl max-h-3xl"
+        initial={{ opacity: 0, filter: "blur(20px)", rotate: -25, scaleX: -1, y: 0 }}
+        animate={{
+          opacity: 1,
+          filter: "blur(0px)",
+          rotate: -25,
+          scaleX: -1,
+          y: [0, -20, 0],
+        }}
         transition={{
-          duration: isLoaded ? 0.6 : 10,
-          ease: "easeInOut",
+          opacity: { duration: 0.6 },
+          filter: { duration: 0.6 },
+          rotate: { duration: 0 },
+          scaleX: { duration: 0 },
+          y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
         }}
       />
     </div>

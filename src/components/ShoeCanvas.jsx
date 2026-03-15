@@ -28,6 +28,10 @@ function ShoeModel({ isUserInteracting, onLoad }) {
     const center = new THREE.Vector3();
     box.getCenter(center);
     scene.position.sub(center);
+    
+    // Tilt shoe to -30 degrees on x-axis
+    // scene.rotation.x = Math.PI / 4;
+    // scene.rotation.y = -Math.PI / 4;
   }, [scene]);
 
   // Auto rotation
@@ -43,7 +47,7 @@ function ShoeModel({ isUserInteracting, onLoad }) {
   });
 
   return (
-    <primitive ref={modelRef} object={scene} scale={30} position={[0, 0, 0]} />
+    <primitive ref={modelRef} object={scene} scale={80} position={[0, 0, 0]} />
   );
 }
 
@@ -55,7 +59,7 @@ export default function ShoeCanvas() {
 
   return (
     <motion.div
-      className="w-full h-[85vh] cursor-grab active:cursor-grabbing"
+      className="w-full h-full cursor-grab active:cursor-grabbing"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -79,16 +83,16 @@ export default function ShoeCanvas() {
         <Suspense
           fallback={
             <Html fullScreen>
-              <ModelLoader isLoaded={modelLoaded} />
+              <ModelLoader isLoaded={false} />
             </Html>
           }
         >
-          <ShoeModel
+          {/* <ShoeModel
             isUserInteracting={interacting}
             onLoad={() => setModelLoaded(true)}
           />
 
-          <Environment preset="studio" />
+          <Environment preset="studio" /> */}
 
           {/* <ContactShadows
             position={[0, -25, 0]}
@@ -98,6 +102,11 @@ export default function ShoeCanvas() {
             far={60}
           /> */}
         </Suspense>
+
+        {/* Keep ModelLoader visible on top */}
+        <Html fullScreen>
+          <ModelLoader isLoaded={false} />
+        </Html>
 
         <OrbitControls
           enableZoom={false}
