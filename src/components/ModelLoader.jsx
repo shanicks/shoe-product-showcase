@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function ModelLoader({ isLoaded }) {
   return (
-    <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
+    <div className="fixed inset-0 z-0 flex items-center justify-center">
       <motion.img
         src="/shoe_brown.png"
         alt="Loading..."
