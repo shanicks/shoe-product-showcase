@@ -3,8 +3,18 @@ import { useEffect, useState } from "react";
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [hidden, setHidden] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
+  useEffect(() => {
+    // Detect screen width
+    const checkWidth = () => setIsDesktop(window.innerWidth >= 1024); // >= 1024px = lg
+    checkWidth();
+
+    window.addEventListener("resize", checkWidth);
+    return () => window.removeEventListener("resize", checkWidth);
+  }, []);
 
   useEffect(() => {
+    if (!isDesktop) return; // do nothing on mobile/tablet
     const moveCursor = (e) => {
       setPosition({ x: e.clientX, y: e.clientY });
 
@@ -34,8 +44,8 @@ export default function CustomCursor() {
     window.addEventListener("mousemove", moveCursor);
 
     return () => window.removeEventListener("mousemove", moveCursor);
-  }, []);
-
+  }, [isDesktop]);
+  if (!isDesktop) return null; // hide cursor on tablet/mobile
   return (
     <div
       className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-[9999] transition-all duration-150 ${

@@ -1,8 +1,10 @@
 import ShoeCanvas from "./ShoeCanvas";
-import { Facebook, Twitter, Instagram } from "lucide-react";
+import { Facebook, Twitter, Instagram, ArrowDownToLine } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { Button } from "./ui/button";
 import { useState } from "react";
-export default function Hero() {
+
+export default function Hero({ nextSectionRef }) {
   const { scrollYProgress } = useScroll();
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -10,6 +12,11 @@ export default function Hero() {
     restDelta: 0.001,
   });
   const [hoveringShoe, setHoveringShoe] = useState(false);
+  const scrollToNext = () => {
+    if (nextSectionRef?.current) {
+      nextSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
@@ -119,17 +126,17 @@ export default function Hero() {
           </p>
         </div>
       </div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <svg
+      {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"> */}
+      {/* <svg
           className="w-[600px] h-[400px]" // big enough to cover screen area to the right
           viewBox="0 0 600 400"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
-        >
-          {/* Dot at center */}
-          <motion.circle
+        > */}
+      {/* Dot at center */}
+      {/* <motion.circle
             cx="300" // middle of SVG width
             cy="200" // middle of SVG height
             r="6"
@@ -137,10 +144,10 @@ export default function Hero() {
             initial={{ scale: 0 }}
             animate={{ scale: hoveringShoe ? 1 : 0 }}
             transition={{ duration: 0.2 }}
-          />
+          /> */}
 
-          {/* Diagonal line to "Buy Now" */}
-          <motion.line
+      {/* Diagonal line to "Buy Now" */}
+      {/* <motion.line
             x1="300" // start at center dot
             y1="200"
             x2="550" // horizontal position of text
@@ -149,10 +156,10 @@ export default function Hero() {
             initial={{ pathLength: 0 }}
             animate={{ pathLength: hoveringShoe ? 1 : 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-          />
+          /> */}
 
-          {/* Optional horizontal line to extend just before text */}
-          <motion.line
+      {/* Optional horizontal line to extend just before text */}
+      {/* <motion.line
             x1="550" // end of diagonal
             y1="350"
             x2="900" // small horizontal extension
@@ -162,10 +169,10 @@ export default function Hero() {
             animate={{ pathLength: hoveringShoe ? 1 : 0 }}
             transition={{ duration: 0.3, delay: 0.7 }}
           />
-        </svg>
+        </svg> */}
 
-        {/* Buy Now Button */}
-        <motion.button
+      {/* Buy Now Button */}
+      {/* <motion.button
           className="pointer-events-auto cursor-pointer absolute left-[600px] top-[305px] w-[80px] h-[80px] rounded-full text-white font-semibold flex items-center justify-center"
           style={{ backgroundColor: "#B85D0A" }}
           initial={{ scale: 0, opacity: 0 }}
@@ -178,7 +185,8 @@ export default function Hero() {
         >
           Buy Now
         </motion.button>
-      </div>
+      </div> */}
+
       {/* Scroll Indicator */}
       <div className="fixed z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 h-[80px] w-[2px] bg-white/40 overflow-hidden">
         <motion.div
@@ -186,6 +194,20 @@ export default function Hero() {
           className="origin-top w-full h-full bg-white"
         />
       </div>
+
+      {/* Scroll to Next Section Button */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          y: [0, 10, 0],
+          transition: { repeat: Infinity, duration: 2 },
+        }}
+        onClick={scrollToNext}
+        className=" absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
+      >
+        <ArrowDownToLine className="w-4 h-4 mr-2" />
+      </motion.button>
     </section>
   );
 }

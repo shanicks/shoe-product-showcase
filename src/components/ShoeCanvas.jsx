@@ -154,7 +154,6 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
             <OrbitControls
               enableZoom={false}
               enablePan={false}
-              enableRotate={true}
               enableDamping
               dampingFactor={0.05}
               rotateSpeed={0.6}

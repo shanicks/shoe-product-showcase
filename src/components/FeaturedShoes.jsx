@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import { forwardRef } from "react";
 
 const featuredShoes = [
   {
@@ -39,9 +40,12 @@ const featuredShoes = [
   },
 ];
 
-export default function FeaturedShoes() {
+const FeaturedShoes = forwardRef((props, ref) => {
   return (
-    <section className="relative w-full py-20 bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden">
+    <section
+      ref={ref}
+      className="relative w-full py-20 bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden"
+    >
       {/* Background Typography */}
       <h2 className="absolute text-[200px] md:text-[280px] font-extrabold opacity-5 select-none pointer-events-none font-bebas -right-20">
         STRIDE
@@ -50,7 +54,9 @@ export default function FeaturedShoes() {
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="flex items-center gap-2 mb-12">
-          <h3 className="text-xl font-bebas tracking-wider uppercase">Featuring</h3>
+          <h3 className="text-xl font-bebas tracking-wider uppercase">
+            Featuring
+          </h3>
           <ChevronRight size={20} className="text-text-secondary" />
         </div>
 
@@ -72,8 +78,12 @@ export default function FeaturedShoes() {
                 />
               </div>
               <div className="p-4 font-inter">
-                <h4 className="text-text-primary font-semibold text-sm">{shoe.name}</h4>
-                <p className="text-accent font-bold text-sm mt-2">${shoe.price}</p>
+                <h4 className="text-text-primary font-semibold text-sm">
+                  {shoe.name}
+                </h4>
+                <p className="text-accent font-bold text-sm mt-2">
+                  ${shoe.price}
+                </p>
                 <div className="flex items-center gap-1 mt-2">
                   <div className="flex gap-0.5">
                     {[...Array(5)].map((_, i) => (
@@ -98,4 +108,6 @@ export default function FeaturedShoes() {
       </div>
     </section>
   );
-}
+});
+
+export default FeaturedShoes;
