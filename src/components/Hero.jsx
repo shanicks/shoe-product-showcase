@@ -11,7 +11,7 @@ export default function Hero() {
   });
   const [hoveringShoe, setHoveringShoe] = useState(false);
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden">
+    <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
         <svg
           viewBox="0 0 1200 300"
