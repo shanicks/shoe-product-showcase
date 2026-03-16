@@ -1,6 +1,7 @@
 import ShoeCanvas from "./ShoeCanvas";
 import { Facebook, Twitter, Instagram } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { useState } from "react";
 export default function Hero() {
   const { scrollYProgress } = useScroll();
   const scaleY = useSpring(scrollYProgress, {
@@ -8,6 +9,7 @@ export default function Hero() {
     damping: 30,
     restDelta: 0.001,
   });
+  const [hoveringShoe, setHoveringShoe] = useState(false);
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
@@ -24,7 +26,7 @@ export default function Hero() {
                 textAnchor="middle"
                 fontSize="260"
                 fontFamily="Bebas Neue"
-                font-weight="800"
+                fontWeight="800"
                 fill="white"
                 letterSpacing="55"
               >
@@ -56,7 +58,10 @@ export default function Hero() {
 
       {/* Shoe Container */}
       <div className="relative w-full max-w-[900px] h-[500px] md:h-[650px] flex items-center justify-center translate-x-6 md:translate-x-12">
-        <ShoeCanvas />
+        <ShoeCanvas
+          onHoverStart={() => setHoveringShoe(true)}
+          onHoverEnd={() => setHoveringShoe(false)}
+        />
 
         {/* Feature Label 1 */}
         <div className="absolute top-[12%] right-[28%] sm:right-[24%] md:right-[30%] text-sm font-inter">
@@ -114,7 +119,66 @@ export default function Hero() {
           </p>
         </div>
       </div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        <svg
+          className="w-[600px] h-[400px]" // big enough to cover screen area to the right
+          viewBox="0 0 600 400"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        >
+          {/* Dot at center */}
+          <motion.circle
+            cx="300" // middle of SVG width
+            cy="200" // middle of SVG height
+            r="6"
+            fill="white"
+            initial={{ scale: 0 }}
+            animate={{ scale: hoveringShoe ? 1 : 0 }}
+            transition={{ duration: 0.2 }}
+          />
 
+          {/* Diagonal line to "Buy Now" */}
+          <motion.line
+            x1="300" // start at center dot
+            y1="200"
+            x2="550" // horizontal position of text
+            y2="350" // vertical position of text
+            strokeWidth="3"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: hoveringShoe ? 1 : 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          />
+
+          {/* Optional horizontal line to extend just before text */}
+          <motion.line
+            x1="550" // end of diagonal
+            y1="350"
+            x2="900" // small horizontal extension
+            y2="350"
+            strokeWidth="3"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: hoveringShoe ? 1 : 0 }}
+            transition={{ duration: 0.3, delay: 0.7 }}
+          />
+        </svg>
+
+        {/* Buy Now Button */}
+        <motion.button
+          className="pointer-events-auto cursor-pointer absolute left-[600px] top-[305px] w-[80px] h-[80px] rounded-full text-white font-semibold flex items-center justify-center"
+          style={{ backgroundColor: "#B85D0A" }}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{
+            scale: hoveringShoe ? 1 : 0,
+            opacity: hoveringShoe ? 1 : 0,
+          }}
+          transition={{ duration: 0.3, delay: 1 }}
+          onClick={() => alert("Buy Now clicked!")}
+        >
+          Buy Now
+        </motion.button>
+      </div>
       {/* Scroll Indicator */}
       <div className="fixed z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 h-[80px] w-[2px] bg-white/40 overflow-hidden">
         <motion.div

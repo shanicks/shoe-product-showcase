@@ -58,7 +58,7 @@ function ShoeModel({ isUserInteracting, onLoad, scale }) {
 
 useGLTF.preload(modelUrl);
 
-export default function ShoeCanvas() {
+export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
   const [interacting, setInteracting] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
   const [cameraConfig, setCameraConfig] = useState({
@@ -120,22 +120,24 @@ export default function ShoeCanvas() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          onMouseEnter={onHoverStart}
+          onMouseLeave={onHoverEnd}
         >
           <Canvas
             camera={{ position: cameraConfig.position, fov: cameraConfig.fov }}
           >
             {/* Lighting setup (better for product showcase) */}
-            <ambientLight intensity={0.35} />
+            <ambientLight intensity={0} />
 
             <directionalLight
               position={[120, 100, 80]}
-              intensity={0.3}
+              intensity={0}
               color="#FFD8A8"
             />
 
             <directionalLight
               position={[-80, 40, -60]}
-              intensity={0.2}
+              intensity={0}
               color="#FFD8A8"
             />
 
