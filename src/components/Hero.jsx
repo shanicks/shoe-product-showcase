@@ -2,7 +2,7 @@ import ShoeCanvas from "./ShoeCanvas";
 import { Facebook, Twitter, Instagram, ArrowDownToLine } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Hero({ nextSectionRef }) {
   const { scrollYProgress } = useScroll();
@@ -17,11 +17,34 @@ export default function Hero({ nextSectionRef }) {
       nextSectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const [viewBox, setViewBox] = useState("0 0 1200 300"); // default desktop
+
+  useEffect(() => {
+    const updateViewBox = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        // Mobile
+        setViewBox("20 0 500 700");
+      } else if (width < 1024) {
+        // Tablet (middle)
+        setViewBox("0 0 800 500"); // choose values between mobile and desktop
+      } else {
+        // Desktop
+        setViewBox("0 0 1200 300");
+      }
+    };
+
+    updateViewBox(); // run on mount
+    window.addEventListener("resize", updateViewBox);
+
+    return () => window.removeEventListener("resize", updateViewBox);
+  }, []);
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
         <svg
-          viewBox="0 0 1200 300"
+          viewBox={viewBox}
           className="w-[800px] sm:w-[1100px] md:w-[1600px] lg:w-[2000px]"
         >
           <defs>
