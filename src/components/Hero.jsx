@@ -10,7 +10,7 @@ export default function Hero() {
   });
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none translate-y-[45px]">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
         <svg
           viewBox="0 0 1200 300"
           className="w-[800px] sm:w-[1100px] md:w-[1600px] lg:w-[2000px]"
