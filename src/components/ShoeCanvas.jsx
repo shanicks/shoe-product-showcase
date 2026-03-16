@@ -81,19 +81,19 @@ export default function ShoeCanvas() {
       if (width < 640) {
         newPosition = [0, 15, 100];
         newFov = 40;
-        newScale = 50;
+        newScale = 12;
       }
       // Tablet (640px - 1024px)
       else if (width < 1024) {
         newPosition = [0, 18, 130];
         newFov = 37;
-        newScale = 65;
+        newScale = 20;
       }
       // Desktop (> 1024px)
       else {
         newPosition = [0, 20, 160];
         newFov = 35;
-        newScale = 80;
+        newScale = 28;
       }
 
       setCameraConfig({
@@ -114,67 +114,55 @@ export default function ShoeCanvas() {
   return (
     <>
       {!modelLoaded && <ModelLoader />}
-
-      <motion.div
-        className="w-full h-full cursor-grab active:cursor-grabbing"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Canvas
-          camera={{ position: cameraConfig.position, fov: cameraConfig.fov }}
+      {
+        <motion.div
+          className="w-full h-full cursor-grab active:cursor-grabbing"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          {/* Lighting setup (better for product showcase) */}
-          <ambientLight intensity={0.35} />
+          <Canvas
+            camera={{ position: cameraConfig.position, fov: cameraConfig.fov }}
+          >
+            {/* Lighting setup (better for product showcase) */}
+            <ambientLight intensity={0.35} />
 
-          <directionalLight
-            position={[120, 100, 80]}
-            intensity={0.3}
-            color="#FFD8A8"
-          />
+            <directionalLight
+              position={[120, 100, 80]}
+              intensity={0.3}
+              color="#FFD8A8"
+            />
 
-          <directionalLight
-            position={[-80, 40, -60]}
-            intensity={0.2}
-            color="#FFD8A8"
-          />
+            <directionalLight
+              position={[-80, 40, -60]}
+              intensity={0.2}
+              color="#FFD8A8"
+            />
 
-          <Suspense fallback={null}>
-            {/* <ShoeModel
-            isUserInteracting={interacting}
-            onLoad={() => setModelLoaded(true)}
-            scale={cameraConfig.scale}
-          />
+            <Suspense fallback={null}>
+              <ShoeModel
+                isUserInteracting={interacting}
+                onLoad={() => setModelLoaded(true)}
+                scale={cameraConfig.scale}
+              />
 
-          <Environment preset="studio" /> */}
+              <Environment preset="studio" />
+            </Suspense>
 
-            {/* <ContactShadows
-            position={[0, -25, 0]}
-            opacity={0.4}
-            scale={40}
-            blur={3}
-            far={60}
-          /> */}
-          </Suspense>
-
-          {/* Keep ModelLoader visible on top */}
-          {/* <Html fullScreen>
-          <ModelLoader isLoaded={false} />
-        </Html> */}
-
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            enableDamping
-            dampingFactor={0.05}
-            rotateSpeed={0.6}
-            onStart={() => setInteracting(true)}
-            onEnd={() => setInteracting(false)}
-            minPolarAngle={Math.PI / 2.5}
-            maxPolarAngle={Math.PI / 1.8}
-          />
-        </Canvas>
-      </motion.div>
+            <OrbitControls
+              enableZoom={false}
+              enablePan={false}
+              enableDamping
+              dampingFactor={0.05}
+              rotateSpeed={0.6}
+              onStart={() => setInteracting(true)}
+              onEnd={() => setInteracting(false)}
+              minPolarAngle={Math.PI / 2.5}
+              maxPolarAngle={Math.PI / 1.8}
+            />
+          </Canvas>
+        </motion.div>
+      }
     </>
   );
 }
