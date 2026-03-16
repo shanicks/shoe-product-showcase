@@ -5,7 +5,10 @@ export default function Header() {
     <header className="absolute top-0 left-0 w-full z-50">
       <div className="container mx-auto px-6 py-6 flex items-center justify-between">
         {/* Logo */}
-        <div className="text-2xl font-bold tracking-widest font-bebas">KIXORA</div>
+        <div className="text-2xl font-bold tracking-widest font-bebas flex items-center">
+          KIXORA
+          <span className="ml-1 w-2 h-2 bg-sky-500 rounded-full  translate-y-[3px]"></span>
+        </div>
 
         {/* Navigation */}
         <nav className="hidden md:flex gap-10 text-sm tracking-wide text-white/90 font-inter">

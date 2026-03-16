@@ -40,3 +40,23 @@
 .read-the-docs {
   color: #888;
 } */
+
+/* .bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+} */
+/* .kixora-video-text {
+  background: url("/shoe_video.mp4");
+  background-size: cover;
+  background-position: center;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */
+
+.video-text {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}

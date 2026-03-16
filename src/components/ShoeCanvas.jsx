@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
-import { Suspense, useRef, useLayoutEffect, useState } from "react";
+import { Suspense, useRef, useLayoutEffect, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import * as THREE from "three";
 import ModelLoader from "./ModelLoader";
@@ -11,7 +11,7 @@ import ModelLoader from "./ModelLoader";
 
 const modelUrl = import.meta.env.VITE_BLOB_URL;
 
-function ShoeModel({ isUserInteracting, onLoad }) {
+function ShoeModel({ isUserInteracting, onLoad, scale }) {
   const { scene } = useGLTF(modelUrl);
   const modelRef = useRef();
 
@@ -28,7 +28,7 @@ function ShoeModel({ isUserInteracting, onLoad }) {
     const center = new THREE.Vector3();
     box.getCenter(center);
     scene.position.sub(center);
-    
+
     // Tilt shoe to -30 degrees on x-axis
     // scene.rotation.x = Math.PI / 4;
     // scene.rotation.y = -Math.PI / 4;
@@ -47,7 +47,12 @@ function ShoeModel({ isUserInteracting, onLoad }) {
   });
 
   return (
-    <primitive ref={modelRef} object={scene} scale={80} position={[0, 0, 0]} />
+    <primitive
+      ref={modelRef}
+      object={scene}
+      scale={scale}
+      position={[0, 0, 0]}
+    />
   );
 }
 
@@ -56,70 +61,120 @@ useGLTF.preload(modelUrl);
 export default function ShoeCanvas() {
   const [interacting, setInteracting] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
+  const [cameraConfig, setCameraConfig] = useState({
+    position: [0, 20, 160],
+    fov: 35,
+    scale: 80,
+  });
+
+  // Responsive camera and scale settings based on window size
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      let newPosition = [0, 20, 160];
+      let newFov = 35;
+      let newScale = 80;
+
+      // Mobile (< 640px)
+      if (width < 640) {
+        newPosition = [0, 15, 100];
+        newFov = 40;
+        newScale = 50;
+      }
+      // Tablet (640px - 1024px)
+      else if (width < 1024) {
+        newPosition = [0, 18, 130];
+        newFov = 37;
+        newScale = 65;
+      }
+      // Desktop (> 1024px)
+      else {
+        newPosition = [0, 20, 160];
+        newFov = 35;
+        newScale = 80;
+      }
+
+      setCameraConfig({
+        position: newPosition,
+        fov: newFov,
+        scale: newScale,
+      });
+    };
+
+    // Set initial config
+    handleResize();
+
+    // Add resize listener
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <motion.div
-      className="w-full h-full cursor-grab active:cursor-grabbing"
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <Canvas camera={{ position: [0, 20, 160], fov: 35 }}>
-        {/* Lighting setup (better for product showcase) */}
-        <ambientLight intensity={0.35} />
+    <>
+      {!modelLoaded && <ModelLoader />}
 
-        <directionalLight
-          position={[120, 100, 80]}
-          intensity={0.3}
-          color="#FFD8A8"
-        />
-
-        <directionalLight
-          position={[-80, 40, -60]}
-          intensity={0.2}
-          color="#FFD8A8"
-        />
-
-        <Suspense
-          fallback={
-            <Html fullScreen>
-              <ModelLoader isLoaded={false} />
-            </Html>
-          }
+      <motion.div
+        className="w-full h-full cursor-grab active:cursor-grabbing"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <Canvas
+          camera={{ position: cameraConfig.position, fov: cameraConfig.fov }}
         >
-          {/* <ShoeModel
+          {/* Lighting setup (better for product showcase) */}
+          <ambientLight intensity={0.35} />
+
+          <directionalLight
+            position={[120, 100, 80]}
+            intensity={0.3}
+            color="#FFD8A8"
+          />
+
+          <directionalLight
+            position={[-80, 40, -60]}
+            intensity={0.2}
+            color="#FFD8A8"
+          />
+
+          <Suspense fallback={null}>
+            {/* <ShoeModel
             isUserInteracting={interacting}
             onLoad={() => setModelLoaded(true)}
+            scale={cameraConfig.scale}
           />
 
           <Environment preset="studio" /> */}
 
-          {/* <ContactShadows
+            {/* <ContactShadows
             position={[0, -25, 0]}
             opacity={0.4}
             scale={40}
             blur={3}
             far={60}
           /> */}
-        </Suspense>
+          </Suspense>
 
-        {/* Keep ModelLoader visible on top */}
-        <Html fullScreen>
+          {/* Keep ModelLoader visible on top */}
+          {/* <Html fullScreen>
           <ModelLoader isLoaded={false} />
-        </Html>
+        </Html> */}
 
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          enableDamping
-          dampingFactor={0.05}
-          rotateSpeed={0.6}
-          onStart={() => setInteracting(true)}
-          onEnd={() => setInteracting(false)}
-          minPolarAngle={Math.PI / 2.5}
-          maxPolarAngle={Math.PI / 1.8}
-        />
-      </Canvas>
-    </motion.div>
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            enableDamping
+            dampingFactor={0.05}
+            rotateSpeed={0.6}
+            onStart={() => setInteracting(true)}
+            onEnd={() => setInteracting(false)}
+            minPolarAngle={Math.PI / 2.5}
+            maxPolarAngle={Math.PI / 1.8}
+          />
+        </Canvas>
+      </motion.div>
+    </>
   );
 }
