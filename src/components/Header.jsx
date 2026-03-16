@@ -2,7 +2,7 @@ import { Search, ShoppingCart, User } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="absolute top-0 left-0 w-full z-50">
+    <header className="fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-6 py-6 flex items-center justify-between">
         {/* Logo */}
         <div className="text-2xl font-bold tracking-widest font-bebas flex items-center">
@@ -11,7 +11,7 @@ export default function Header() {
         </div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex gap-10 text-sm tracking-wide text-white/90 font-inter">
+        <nav className="hidden md:flex gap-10 text-sm tracking-wide text-white/90 font-inter cursor-pointer">
           <a className="hover:text-white transition">Home</a>
           <a className="hover:text-white transition">Brands</a>
           <a className="hover:text-white transition">Men</a>

@@ -1,11 +1,20 @@
 import ShoeCanvas from "./ShoeCanvas";
 import { Facebook, Twitter, Instagram } from "lucide-react";
-
+import { motion, useScroll, useSpring } from "framer-motion";
 export default function Hero() {
+  const { scrollYProgress } = useScroll();
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <svg viewBox="0 0 1200 300" className="w-full">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none translate-y-[45px]">
+        <svg
+          viewBox="0 0 1200 300"
+          className="w-[800px] sm:w-[1100px] md:w-[1600px] lg:w-[2000px]"
+        >
           <defs>
             <mask id="kixora-mask">
               <rect width="100%" height="100%" fill="black" />
@@ -13,10 +22,11 @@ export default function Hero() {
                 x="50%"
                 y="60%"
                 textAnchor="middle"
-                fontSize="220"
+                fontSize="260"
                 fontFamily="Bebas Neue"
+                font-weight="800"
                 fill="white"
-                letterSpacing="40"
+                letterSpacing="55"
               >
                 KIXORA
               </text>
@@ -38,10 +48,10 @@ export default function Hero() {
       </div>
 
       {/* Social Icons */}
-      <div className="absolute z-10 left-4 md:left-10 flex flex-col gap-6 text-white/60">
-        <Facebook size={18} />
-        <Twitter size={18} />
-        <Instagram size={18} />
+      <div className="absolute z-10 left-4 md:left-10 flex flex-col gap-6 cursor-pointer">
+        <Facebook size={18} className="text-white/60 hover:text-white" />
+        <Twitter size={18} className="text-white/60 hover:text-white" />
+        <Instagram size={18} className="text-white/60 hover:text-white" />
       </div>
 
       {/* Shoe Container */}
@@ -106,8 +116,11 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 h-[80px] w-[2px] bg-white/60">
-        <div className="h-[25px] bg-white w-full animate-pulse"></div>
+      <div className="fixed z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 h-[80px] w-[2px] bg-white/40 overflow-hidden">
+        <motion.div
+          style={{ scaleY }}
+          className="origin-top w-full h-full bg-white"
+        />
       </div>
     </section>
   );
