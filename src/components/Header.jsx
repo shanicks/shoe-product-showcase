@@ -1,4 +1,4 @@
-import { Search, ShoppingCart, User } from "lucide-react";
+import { Search, ShoppingCart, Menu, User } from "lucide-react";
 
 export default function Header() {
   return (
@@ -20,10 +20,17 @@ export default function Header() {
         </nav>
 
         {/* Icons */}
-        <div className="flex gap-5 text-white/90">
+        <div className="flex gap-12 md:gap-5 text-white/90">
           <Search size={20} className="cursor-pointer hover:text-white" />
           <ShoppingCart size={20} className="cursor-pointer hover:text-white" />
-          <User size={20} className="cursor-pointer hover:text-white" />
+          <User
+            size={20}
+            className="hidden md:block cursor-pointer hover:text-white"
+          />
+          <Menu
+            size={20}
+            className="md:hidden cursor-pointer hover:text-white"
+          />
         </div>
       </div>
     </header>

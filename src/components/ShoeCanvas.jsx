@@ -14,7 +14,8 @@ THREE.DefaultLoadingManager.crossOrigin = "anonymous";
 // const modelUrl = `https://corsproxy.io/?${encodeURIComponent(import.meta.env.VITE_BLOB_URL)}`;
 const isDev = import.meta.env.VITE_DEV;
 
-const modelUrl = isDev ? import.meta.env.VITE_BLOB_URL : "/api/model";
+// const modelUrl = isDev ? import.meta.env.VITE_BLOB_URL : "/api/model";
+const modelUrl = "/sneaker_model2_compressed.glb";
 
 function ShoeModel({ isUserInteracting, onLoad, scale }) {
   const { scene } = useGLTF(modelUrl);
