@@ -5,14 +5,15 @@ import { motion } from "framer-motion";
 import * as THREE from "three";
 import ModelLoader from "./ModelLoader";
 
+THREE.DefaultLoadingManager.crossOrigin = "anonymous";
 // const blob = await head(import.meta.env.VITE_BLOB_URL, {
 //   token: import.meta.env.VITE_READ_WRITE_TOKEN,
 // });
 
-const modelUrl = import.meta.env.VITE_BLOB_URL;
-
+const modelUrl = `${import.meta.env.VITE_BLOB_URL}?download=1`;
+// const modelUrl = `https://corsproxy.io/?${encodeURIComponent(import.meta.env.VITE_BLOB_URL)}`;
 function ShoeModel({ isUserInteracting, onLoad, scale }) {
-  const { scene } = useGLTF(modelUrl);
+  const { scene } = useGLTF(modelUrl, true);
   const modelRef = useRef();
 
   // Call onLoad when model is ready
