@@ -11,7 +11,9 @@ THREE.DefaultLoadingManager.crossOrigin = "anonymous";
 // });
 
 // const modelUrl = import.meta.env.VITE_BLOB_URL;
-const modelUrl = `https://corsproxy.io/?${encodeURIComponent(import.meta.env.VITE_BLOB_URL)}`;
+// const modelUrl = `https://corsproxy.io/?${encodeURIComponent(import.meta.env.VITE_BLOB_URL)}`;
+const modelUrl = "/api/model";
+
 function ShoeModel({ isUserInteracting, onLoad, scale }) {
   const { scene } = useGLTF(modelUrl);
   const modelRef = useRef();
