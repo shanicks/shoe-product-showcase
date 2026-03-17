@@ -10,8 +10,8 @@ THREE.DefaultLoadingManager.crossOrigin = "anonymous";
 //   token: import.meta.env.VITE_READ_WRITE_TOKEN,
 // });
 
-const modelUrl = import.meta.env.VITE_BLOB_URL;
-// const modelUrl = `https://corsproxy.io/?${encodeURIComponent(import.meta.env.VITE_BLOB_URL)}`;
+// const modelUrl = import.meta.env.VITE_BLOB_URL;
+const modelUrl = `https://corsproxy.io/?${encodeURIComponent(import.meta.env.VITE_BLOB_URL)}`;
 function ShoeModel({ isUserInteracting, onLoad, scale }) {
   const { scene } = useGLTF(modelUrl);
   const modelRef = useRef();
