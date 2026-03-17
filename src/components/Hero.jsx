@@ -80,7 +80,7 @@ export default function Hero({ nextSectionRef }) {
       </div>
 
       {/* Social Icons */}
-      <div className="absolute z-10 left-4 md:left-10 flex flex-col gap-6 cursor-pointer">
+      <div className="absolute z-10 left-4 md:left-10 flex flex-col gap-12 md:gap-6 mb-8 md:mb-0 cursor-pointer">
         <Facebook size={18} className="text-white/60 hover:text-white" />
         <Twitter size={18} className="text-white/60 hover:text-white" />
         <Instagram size={18} className="text-white/60 hover:text-white" />
