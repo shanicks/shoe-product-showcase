@@ -1,7 +1,6 @@
 import ShoeCanvas from "./ShoeCanvas";
 import { Facebook, Twitter, Instagram, ArrowDownToLine } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
 
 export default function Hero({ nextSectionRef }) {
@@ -19,19 +18,26 @@ export default function Hero({ nextSectionRef }) {
   };
 
   const [viewBox, setViewBox] = useState("0 0 1200 300"); // default desktop
-
+  const [isDesktop, setIsDesktop] = useState(true);
+  const [isTablet, setIsTablet] = useState(false);
   useEffect(() => {
     const updateViewBox = () => {
       const width = window.innerWidth;
-      if (width < 640) {
+      if (width < 768) {
         // Mobile
         setViewBox("20 0 500 700");
+        setIsDesktop(false);
+        setIsTablet(false);
       } else if (width < 1024) {
         // Tablet (middle)
         setViewBox("0 0 800 500"); // choose values between mobile and desktop
+        setIsDesktop(false);
+        setIsTablet(true);
       } else {
         // Desktop
         setViewBox("0 0 1200 300");
+        setIsDesktop(true);
+        setIsTablet(false);
       }
     };
 
@@ -40,6 +46,8 @@ export default function Hero({ nextSectionRef }) {
 
     return () => window.removeEventListener("resize", updateViewBox);
   }, []);
+
+  const showUI = isDesktop ? hoveringShoe : true;
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
@@ -149,66 +157,67 @@ export default function Hero({ nextSectionRef }) {
           </p>
         </div>
       </div>
-      {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"> */}
-      {/* <svg
-          className="w-[600px] h-[400px]" // big enough to cover screen area to the right
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        {/* SVG Connector */}
+        <svg
+          className="w-[600px] h-[400px]"
           viewBox="0 0 600 400"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
-        > */}
-      {/* Dot at center */}
-      {/* <motion.circle
-            cx="300" // middle of SVG width
-            cy="200" // middle of SVG height
+        >
+          {/* Center Dot */}
+          <motion.circle
+            cx="300"
+            cy="200"
             r="6"
             fill="white"
-            initial={{ scale: 0 }}
-            animate={{ scale: hoveringShoe ? 1 : 0 }}
+            initial={isDesktop ? { scale: 0 } : false}
+            animate={{ scale: showUI ? 1 : 0 }}
             transition={{ duration: 0.2 }}
-          /> */}
-
-      {/* Diagonal line to "Buy Now" */}
-      {/* <motion.line
-            x1="300" // start at center dot
-            y1="200"
-            x2="550" // horizontal position of text
-            y2="350" // vertical position of text
-            strokeWidth="3"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: hoveringShoe ? 1 : 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          /> */}
-
-      {/* Optional horizontal line to extend just before text */}
-      {/* <motion.line
-            x1="550" // end of diagonal
-            y1="350"
-            x2="900" // small horizontal extension
-            y2="350"
-            strokeWidth="3"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: hoveringShoe ? 1 : 0 }}
-            transition={{ duration: 0.3, delay: 0.7 }}
           />
-        </svg> */}
 
-      {/* Buy Now Button */}
-      {/* <motion.button
-          className="pointer-events-auto cursor-pointer absolute left-[600px] top-[305px] w-[80px] h-[80px] rounded-full text-white font-semibold flex items-center justify-center"
+          {/* Diagonal Line */}
+          <motion.line
+            x1="300"
+            y1="200"
+            x2={isDesktop ? "550" : isTablet ? "450" : "400"}
+            y2={isDesktop ? "350" : isTablet ? "350" : "300"}
+            strokeWidth="3"
+            initial={isDesktop ? { pathLength: 0 } : false}
+            animate={{ pathLength: showUI ? 1 : 0 }}
+            transition={{ duration: 0.5, delay: isDesktop ? 0.2 : 0 }}
+          />
+
+          {/* Horizontal Line */}
+          <motion.line
+            x1={isDesktop ? "550" : isTablet ? "450" : "400"}
+            y1={isDesktop ? "350" : isTablet ? "350" : "300"}
+            x2={isDesktop ? "900" : isTablet ? "700" : "500"}
+            y2={isDesktop ? "350" : isTablet ? "350" : "300"}
+            strokeWidth="3"
+            initial={isDesktop ? { pathLength: 0 } : false}
+            animate={{ pathLength: showUI ? 1 : 0 }}
+            transition={{ duration: 0.3, delay: isDesktop ? 0.7 : 0 }}
+          />
+        </svg>
+
+        {/* Buy Now Button */}
+        <motion.button
+          className="pointer-events-auto cursor-pointer absolute left-[430px] sm:left-[500px] md:left-[600px] top-[258px] sm:top-[257px] md:top-[308px] w-[80px] h-[80px] rounded-full text-white font-semibold flex items-center justify-center"
           style={{ backgroundColor: "#B85D0A" }}
-          initial={{ scale: 0, opacity: 0 }}
+          initial={isDesktop ? { scale: 0, opacity: 0 } : false}
           animate={{
-            scale: hoveringShoe ? 1 : 0,
-            opacity: hoveringShoe ? 1 : 0,
+            scale: showUI ? 1 : 0,
+            opacity: showUI ? 1 : 0,
           }}
-          transition={{ duration: 0.3, delay: 1 }}
+          transition={{ duration: 0.3, delay: isDesktop ? 1 : 0 }}
           onClick={() => alert("Buy Now clicked!")}
         >
           Buy Now
         </motion.button>
-      </div> */}
+      </div>
 
       {/* Scroll Indicator */}
       <div className="fixed z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 h-[80px] w-[2px] bg-white/40 overflow-hidden">

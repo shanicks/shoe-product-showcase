@@ -47,16 +47,66 @@ export default function CustomCursor() {
   }, [isDesktop]);
   if (!isDesktop) return null; // hide cursor on tablet/mobile
   return (
+    // <div
+    //   className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-[9999] transition-all duration-150 ${
+    //     hidden ? "opacity-0" : "opacity-100"
+    //   }`}
+    //   style={{
+    //     transform: `translate(${position.x - 20}px, ${position.y - 20}px)`,
+    //     background: "rgba(255, 255, 255, 0.06)",
+    //     backdropFilter: "blur(3px)",
+    //     border: "1px solid rgba(255,255,255,0.3)",
+    //   }}
+    // />
     <div
-      className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-[9999] transition-all duration-150 ${
+      className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-[9999] transition-opacity duration-150 ${
         hidden ? "opacity-0" : "opacity-100"
       }`}
       style={{
-        transform: `translate(${position.x - 20}px, ${position.y - 20}px)`,
-        background: "rgba(255, 255, 255, 0.06)",
-        backdropFilter: "blur(3px)",
-        border: "1px solid rgba(255,255,255,0.3)",
+        transform: `translate(${position.x - 40}px, ${position.y - 40}px)`,
       }}
-    />
+    >
+      {/* Main glass layer */}
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background: `
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 60%),
+        rgba(255,255,255,0.05)
+      `,
+          backdropFilter: "blur(14px) saturate(180%)",
+          WebkitBackdropFilter: "blur(14px) saturate(180%)",
+          border: "1px solid rgba(255,255,255,0.35)",
+          boxShadow: `
+        0 4px 30px rgba(0,0,0,0.25),
+        inset 0 1px 10px rgba(255,255,255,0.35)
+      `,
+        }}
+      />
+
+      {/* 🔴 Red dispersion */}
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,0,0,0.15), transparent 70%)",
+          mixBlendMode: "screen",
+          transform: "translate(1px, 0)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* 🔵 Blue dispersion */}
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(0,0,255,0.15), transparent 70%)",
+          mixBlendMode: "screen",
+          transform: "translate(-1px, 0)",
+          pointerEvents: "none",
+        }}
+      />
+    </div>
   );
 }
