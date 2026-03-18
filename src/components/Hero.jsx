@@ -205,7 +205,7 @@ export default function Hero({ nextSectionRef }) {
 
         {/* Buy Now Button */}
         <motion.button
-          className="pointer-events-auto cursor-pointer absolute left-[430px] sm:left-[500px] md:left-[600px] top-[258px] sm:top-[257px] md:top-[308px] w-[80px] h-[80px] rounded-full text-white font-semibold flex items-center justify-center"
+          className="pointer-events-auto cursor-pointer absolute left-[430px] sm:left-[500px] md:left-[600px] top-[258px] sm:top-[257px] md:top-[308px] w-[80px] h-[80px] rounded-full text-white font-semibold flex items-center justify-center mr-10"
           style={{ backgroundColor: "#B85D0A" }}
           initial={isDesktop ? { scale: 0, opacity: 0 } : false}
           animate={{
