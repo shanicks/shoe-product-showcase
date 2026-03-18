@@ -47,17 +47,6 @@ export default function CustomCursor() {
   }, [isDesktop]);
   if (!isDesktop) return null; // hide cursor on tablet/mobile
   return (
-    // <div
-    //   className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-[9999] transition-all duration-150 ${
-    //     hidden ? "opacity-0" : "opacity-100"
-    //   }`}
-    //   style={{
-    //     transform: `translate(${position.x - 20}px, ${position.y - 20}px)`,
-    //     background: "rgba(255, 255, 255, 0.06)",
-    //     backdropFilter: "blur(3px)",
-    //     border: "1px solid rgba(255,255,255,0.3)",
-    //   }}
-    // />
     <div
       className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-[9999] transition-opacity duration-150 ${
         hidden ? "opacity-0" : "opacity-100"
@@ -104,6 +93,25 @@ export default function CustomCursor() {
             "radial-gradient(circle, rgba(0,0,255,0.15), transparent 70%)",
           mixBlendMode: "screen",
           transform: "translate(-1px, 0)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* 🌀 Swirl layer */}
+      <div
+        className="absolute inset-0 rounded-full animate-spin-slow"
+        style={{
+          background: `
+      conic-gradient(
+        from 0deg,
+        rgba(255,255,255,0.15),
+        rgba(255,255,255,0.05),
+        rgba(255,255,255,0.15)
+      )
+    `,
+          filter: "blur(8px)",
+          mixBlendMode: "overlay",
+          opacity: 0.6,
           pointerEvents: "none",
         }}
       />

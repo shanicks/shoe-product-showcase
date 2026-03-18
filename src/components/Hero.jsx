@@ -2,14 +2,9 @@ import ShoeCanvas from "./ShoeCanvas";
 import { Facebook, Twitter, Instagram, ArrowDownToLine } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useState, useEffect } from "react";
+import { Button } from "./ui/button";
 
 export default function Hero({ nextSectionRef }) {
-  const { scrollYProgress } = useScroll();
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
   const [hoveringShoe, setHoveringShoe] = useState(false);
   const scrollToNext = () => {
     if (nextSectionRef?.current) {
@@ -49,7 +44,7 @@ export default function Hero({ nextSectionRef }) {
 
   const showUI = isDesktop ? hoveringShoe : true;
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto">
+    <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto -translate-y-26 sm:-translate-y-12 md:translate-y-0">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
         <svg
           viewBox={viewBox}
@@ -100,6 +95,10 @@ export default function Hero({ nextSectionRef }) {
           onHoverStart={() => setHoveringShoe(true)}
           onHoverEnd={() => setHoveringShoe(false)}
         />
+
+        <p className="absolute bottom-35 left-1/2 text-white/60 text-xs -translate-x-1/2 pointer-events-none md:bottom-10 sm:bottom-18">
+          Press and Hold to interact with the 3D shoe
+        </p>
 
         {/* Feature Label 1 */}
         <div className="absolute top-[12%] right-[28%] sm:right-[24%] md:right-[30%] text-sm font-inter">
@@ -184,7 +183,7 @@ export default function Hero({ nextSectionRef }) {
             y1="200"
             x2={isDesktop ? "550" : isTablet ? "450" : "400"}
             y2={isDesktop ? "350" : isTablet ? "350" : "300"}
-            strokeWidth="3"
+            strokeWidth="2"
             initial={isDesktop ? { pathLength: 0 } : false}
             animate={{ pathLength: showUI ? 1 : 0 }}
             transition={{ duration: 0.5, delay: isDesktop ? 0.2 : 0 }}
@@ -194,9 +193,9 @@ export default function Hero({ nextSectionRef }) {
           <motion.line
             x1={isDesktop ? "550" : isTablet ? "450" : "400"}
             y1={isDesktop ? "350" : isTablet ? "350" : "300"}
-            x2={isDesktop ? "900" : isTablet ? "700" : "500"}
+            x2={isDesktop ? "900" : isTablet ? "700" : "450"}
             y2={isDesktop ? "350" : isTablet ? "350" : "300"}
-            strokeWidth="3"
+            strokeWidth="2"
             initial={isDesktop ? { pathLength: 0 } : false}
             animate={{ pathLength: showUI ? 1 : 0 }}
             transition={{ duration: 0.3, delay: isDesktop ? 0.7 : 0 }}
@@ -205,7 +204,7 @@ export default function Hero({ nextSectionRef }) {
 
         {/* Buy Now Button */}
         <motion.button
-          className="pointer-events-auto cursor-pointer absolute left-[430px] sm:left-[500px] md:left-[600px] top-[258px] sm:top-[257px] md:top-[308px] w-[80px] h-[80px] rounded-full text-white font-semibold flex items-center justify-center mr-10"
+          className="pointer-events-auto cursor-pointer absolute left-[430px] sm:left-[500px] md:left-[600px] top-[275px] sm:top-[257px] md:top-[308px] w-[45px] h-[45px] md:w-[80px] md:h-[80px] rounded-full text-white font-semibold flex items-center justify-center mr-10 text-xs md:text-sm text-center"
           style={{ backgroundColor: "#B85D0A" }}
           initial={isDesktop ? { scale: 0, opacity: 0 } : false}
           animate={{
@@ -215,18 +214,12 @@ export default function Hero({ nextSectionRef }) {
           transition={{ duration: 0.3, delay: isDesktop ? 1 : 0 }}
           onClick={() => alert("Buy Now clicked!")}
         >
-          Buy Now
+          80% OFF
         </motion.button>
       </div>
-
-      {/* Scroll Indicator */}
-      <div className="fixed z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 h-[80px] w-[2px] bg-white/40 overflow-hidden">
-        <motion.div
-          style={{ scaleY }}
-          className="origin-top w-full h-full bg-white"
-        />
-      </div>
-
+      <Button className="text-black absolute rounded-full bg-sky-500 bottom-40 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3">
+        Buy Now
+      </Button>
       {/* Scroll to Next Section Button */}
       <motion.button
         initial={{ opacity: 0 }}
@@ -236,7 +229,7 @@ export default function Hero({ nextSectionRef }) {
           transition: { repeat: Infinity, duration: 2 },
         }}
         onClick={scrollToNext}
-        className="absolute bottom-20 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
+        className="hidden sm:block absolute bottom-20 sm:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
       >
         <ArrowDownToLine className="w-4 h-4 mr-2" />
       </motion.button>

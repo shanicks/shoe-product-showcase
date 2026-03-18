@@ -11,7 +11,7 @@ export default function App() {
   const nextSectionRef = useRef(null);
   return (
     <>
-      {/* <CustomCusor /> */}
+      <CustomCusor />
       <div className="min-h-screen w-full bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] text-white overflow-hidden">
         <Header />
         <Hero nextSectionRef={nextSectionRef} />

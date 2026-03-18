@@ -1,6 +1,12 @@
 import { Search, ShoppingCart, Menu, User } from "lucide-react";
-
+import { motion, useScroll, useSpring } from "framer-motion";
 export default function Header() {
+  const { scrollYProgress } = useScroll();
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
   return (
     <header className="fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-6 py-6 flex items-center justify-between">
@@ -32,6 +38,13 @@ export default function Header() {
             className="md:hidden cursor-pointer hover:text-white"
           />
         </div>
+      </div>
+      {/* Scroll Indicator */}
+      <div className="fixed z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 h-[80px] w-[2px] bg-white/40 overflow-hidden">
+        <motion.div
+          style={{ scaleY }}
+          className="origin-top w-full h-full bg-white"
+        />
       </div>
     </header>
   );
