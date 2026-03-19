@@ -218,12 +218,56 @@ export default function Hero({ nextSectionRef }) {
           80% OFF
         </motion.button>
       </div>
-      <Button
+      {/* <Button
         size="lg"
         className="cursor-pointer px-8 py-8 text-lg backdrop-blur-lg rounded-xl shadow border border-white/20 bg-[#B85D0A] text-white absolute rounded-full bottom-35 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
       >
         Buy Now
-      </Button>
+      </Button> */}
+
+      <motion.button
+        className="cursor-pointer absolute bottom-35 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 border-3 border-white overflow-hidden rounded-full px-8 py-4 text-white font-semibold"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {/* Text */}
+        <span className="relative z-10">Buy Now</span>
+
+        {/* Animated Gradient Background */}
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: "linear-gradient(120deg, #02A2ED, #B55B09, #02A2ED)",
+            backgroundSize: "200% 200%",
+          }}
+          animate={{
+            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Glow Layer */}
+        <motion.div
+          className="absolute inset-0 rounded-full blur-xl opacity-40"
+          style={{
+            background: "linear-gradient(120deg, #02A2ED, #B55B09, #02A2ED)",
+            backgroundSize: "200% 200%",
+          }}
+          animate={{
+            backgroundPosition: ["100% 50%", "0% 50%", "100% 50%"],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.button>
+
       {/* Scroll to Next Section Button */}
       <motion.button
         initial={{ opacity: 0 }}
