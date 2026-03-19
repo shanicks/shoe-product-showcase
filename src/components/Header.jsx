@@ -94,15 +94,16 @@ export default function Header() {
                     Information
                   </h3>
                   <div className="flex flex-col gap-3 text-white/80 ml-15">
-                    <a className="hover:text-white transition">About Us</a>
-                    <a className="hover:text-white transition">Help</a>
-                    <a className="hover:text-white transition">Contact Us</a>
+                    <a className="hover:text-white transition">Login/Signup</a>
                     <a className="hover:text-white transition">My Orders</a>
                     <a className="hover:text-white transition">
-                      Terms & Conditions
-                    </a>
-                    <a className="hover:text-white transition">
                       Returns & Exchanges
+                    </a>
+                    <a className="hover:text-white transition">About Us</a>
+                    <a className="hover:text-white transition">FAQ</a>
+                    <a className="hover:text-white transition">Contact Us</a>
+                    <a className="hover:text-white transition">
+                      Terms & Conditions
                     </a>
                   </div>
                 </div>

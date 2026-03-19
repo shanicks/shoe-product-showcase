@@ -97,7 +97,7 @@ export default function Hero({ nextSectionRef }) {
           onHoverEnd={() => setHoveringShoe(false)}
         />
 
-        <p className="absolute bottom-30 left-1/2 text-white/60 text-xs -translate-x-1/2 pointer-events-none md:bottom-10 sm:bottom-18">
+        <p className="absolute bottom-10 sm:bottom-16 md:bottom-10 left-1/2 -translate-x-1/2 text-white/60 text-xs text-center">
           Press and Hold to interact with the 3D shoe
         </p>
 
@@ -171,7 +171,7 @@ export default function Hero({ nextSectionRef }) {
           <motion.circle
             cx="300"
             cy="200"
-            r="6"
+            r="4"
             fill="white"
             initial={isDesktop ? { scale: 0 } : false}
             animate={{ scale: showUI ? 1 : 0 }}
@@ -182,8 +182,8 @@ export default function Hero({ nextSectionRef }) {
           <motion.line
             x1="300"
             y1="200"
-            x2={isDesktop ? "550" : isTablet ? "450" : "400"}
-            y2={isDesktop ? "350" : isTablet ? "350" : "300"}
+            x2={isDesktop ? "550" : isTablet ? "450" : "350"}
+            y2={isDesktop ? "350" : isTablet ? "350" : "250"}
             strokeWidth="2"
             initial={isDesktop ? { pathLength: 0 } : false}
             animate={{ pathLength: showUI ? 1 : 0 }}
@@ -192,10 +192,10 @@ export default function Hero({ nextSectionRef }) {
 
           {/* Horizontal Line */}
           <motion.line
-            x1={isDesktop ? "550" : isTablet ? "450" : "400"}
-            y1={isDesktop ? "350" : isTablet ? "350" : "300"}
+            x1={isDesktop ? "550" : isTablet ? "450" : "350"}
+            y1={isDesktop ? "350" : isTablet ? "350" : "250"}
             x2={isDesktop ? "900" : isTablet ? "700" : "450"}
-            y2={isDesktop ? "350" : isTablet ? "350" : "300"}
+            y2={isDesktop ? "350" : isTablet ? "350" : "250"}
             strokeWidth="2"
             initial={isDesktop ? { pathLength: 0 } : false}
             animate={{ pathLength: showUI ? 1 : 0 }}
@@ -205,7 +205,7 @@ export default function Hero({ nextSectionRef }) {
 
         {/* Buy Now Button */}
         <motion.button
-          className="pointer-events-auto cursor-pointer absolute left-[430px] sm:left-[500px] md:left-[600px] top-[275px] sm:top-[257px] md:top-[308px] w-[45px] h-[45px] md:w-[80px] md:h-[80px] rounded-full text-white font-semibold flex items-center justify-center mr-10 text-xs md:text-sm text-center"
+          className="pointer-events-auto cursor-pointer absolute left-[430px] sm:left-[500px] md:left-[600px] top-[225px] sm:top-[257px] md:top-[308px] w-[45px] h-[45px] md:w-[80px] md:h-[80px] rounded-full text-white font-semibold flex items-center justify-center mr-10 text-xs md:text-sm text-center"
           style={{ backgroundColor: "#B85D0A" }}
           initial={isDesktop ? { scale: 0, opacity: 0 } : false}
           animate={{
@@ -220,7 +220,7 @@ export default function Hero({ nextSectionRef }) {
       </div>
       <Button
         size="lg"
-        className="px-8 py-6 text-lg backdrop-blur-lg rounded-xl shadow border border-white/20 bg-white/10 text-white absolute rounded-full bottom-40 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
+        className="cursor-pointer px-8 py-8 text-lg backdrop-blur-lg rounded-xl shadow border border-white/20 bg-[#B85D0A] text-white absolute rounded-full bottom-40 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
       >
         Buy Now
       </Button>
