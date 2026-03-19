@@ -1,11 +1,11 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Suspense, useRef, useLayoutEffect, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import * as THREE from "three";
+import { Box3, Vector3 } from "three";
 import ModelLoader from "./ModelLoader";
 
-THREE.DefaultLoadingManager.crossOrigin = "anonymous";
+// THREE.DefaultLoadingManager.crossOrigin = "anonymous";
 // const blob = await head(import.meta.env.VITE_BLOB_URL, {
 //   token: import.meta.env.VITE_READ_WRITE_TOKEN,
 // });
@@ -18,7 +18,7 @@ const isDev = import.meta.env.VITE_DEV;
 const modelUrl = "/sneaker_model2_compressed.glb";
 
 function ShoeModel({ isUserInteracting, onLoad, scale }) {
-  const { scene } = useGLTF(modelUrl);
+  const { scene } = useGLTF(modelUrl, true);
   const modelRef = useRef();
 
   // Call onLoad when model is ready
@@ -30,8 +30,8 @@ function ShoeModel({ isUserInteracting, onLoad, scale }) {
 
   // Center model
   useLayoutEffect(() => {
-    const box = new THREE.Box3().setFromObject(scene);
-    const center = new THREE.Vector3();
+    const box = new Box3().setFromObject(scene);
+    const center = new Vector3();
     box.getCenter(center);
     scene.position.sub(center);
 
@@ -62,7 +62,7 @@ function ShoeModel({ isUserInteracting, onLoad, scale }) {
   );
 }
 
-useGLTF.preload(modelUrl);
+// useGLTF.preload(modelUrl);
 
 export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
   const [interacting, setInteracting] = useState(false);
@@ -130,20 +130,22 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
           onMouseLeave={onHoverEnd}
         >
           <Canvas
+            dpr={[1, 1.5]} // limit pixel ratio
+            performance={{ min: 0.5 }}
             camera={{ position: cameraConfig.position, fov: cameraConfig.fov }}
           >
             {/* Lighting setup (better for product showcase) */}
-            <ambientLight intensity={0} />
+            <ambientLight intensity={2} />
 
             <directionalLight
               position={[120, 100, 80]}
-              intensity={0}
+              intensity={10}
               color="#FFD8A8"
             />
 
             <directionalLight
               position={[-80, 40, -60]}
-              intensity={0}
+              intensity={10}
               color="#FFD8A8"
             />
 
@@ -154,7 +156,7 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
                 scale={cameraConfig.scale}
               />
 
-              <Environment preset="studio" />
+              {/* <Environment preset="studio" /> */}
             </Suspense>
 
             <OrbitControls

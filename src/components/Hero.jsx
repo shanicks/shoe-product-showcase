@@ -1,8 +1,9 @@
-import ShoeCanvas from "./ShoeCanvas";
 import { Facebook, Twitter, Instagram, ArrowDownToLine } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Button } from "./ui/button";
+
+const ShoeCanvasLazy = lazy(() => import("./ShoeCanvasLazy"));
 
 export default function Hero({ nextSectionRef }) {
   const [hoveringShoe, setHoveringShoe] = useState(false);
@@ -91,7 +92,7 @@ export default function Hero({ nextSectionRef }) {
 
       {/* Shoe Container */}
       <div className="relative w-full max-w-[900px] h-[500px] md:h-[650px] flex items-center justify-center translate-x-6 md:translate-x-12">
-        <ShoeCanvas
+        <ShoeCanvasLazy
           onHoverStart={() => setHoveringShoe(true)}
           onHoverEnd={() => setHoveringShoe(false)}
         />
