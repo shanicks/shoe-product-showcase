@@ -15,6 +15,7 @@ import ModelLoader from "./ModelLoader";
 const isDev = import.meta.env.VITE_DEV;
 
 // const modelUrl = isDev ? import.meta.env.VITE_BLOB_URL : "/api/model";
+// const modelUrl = "/sneaker_model2_compressed.glb";
 const modelUrl = "/sneaker_model2_compressed.glb";
 
 function ShoeModel({ isUserInteracting, onLoad, scale }) {
@@ -140,13 +141,13 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
             <directionalLight
               position={[120, 100, 80]}
               intensity={10}
-              color="#FFD8A8"
+              color="#FFFFFF"
             />
 
             <directionalLight
               position={[-80, 40, -60]}
               intensity={10}
-              color="#FFD8A8"
+              color="#FFFFFF"
             />
 
             <Suspense fallback={null}>
@@ -154,6 +155,7 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
                 isUserInteracting={interacting}
                 onLoad={() => setModelLoaded(true)}
                 scale={cameraConfig.scale}
+                // scale={120}
               />
 
               {/* <Environment preset="studio" /> */}
