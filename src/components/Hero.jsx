@@ -97,7 +97,7 @@ export default function Hero({ nextSectionRef }) {
           onHoverEnd={() => setHoveringShoe(false)}
         />
 
-        <p className="absolute bottom-25 sm:bottom-16 md:bottom-10 left-1/2 -translate-x-[60%] md:-translate-x-[65%] text-white/60 text-xs text-center">
+        <p className="absolute bottom-35 sm:bottom-16 md:bottom-10 left-1/2 -translate-x-[60%] md:-translate-x-[65%] text-white/60 text-xs text-center">
           Press and Hold to interact with the 3D shoe
         </p>
 
