@@ -217,7 +217,10 @@ export default function Hero({ nextSectionRef }) {
           80% OFF
         </motion.button>
       </div>
-      <Button className="text-black absolute rounded-full bg-sky-500 bottom-40 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3">
+      <Button
+        size="lg"
+        className="px-8 py-6 text-lg backdrop-blur-lg rounded-xl shadow border border-white/20 bg-white/10 text-white absolute rounded-full bottom-40 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
+      >
         Buy Now
       </Button>
       {/* Scroll to Next Section Button */}
