@@ -1,6 +1,6 @@
 import { Facebook, Twitter, Instagram, ArrowDownToLine } from "lucide-react";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { useState, useEffect, lazy, Suspense } from "react";
+import { motion } from "framer-motion";
+import { useState, useEffect, lazy } from "react";
 import { Button } from "./ui/button";
 
 const ShoeCanvasLazy = lazy(() => import("./ShoeCanvasLazy"));
@@ -97,7 +97,7 @@ export default function Hero({ nextSectionRef }) {
           onHoverEnd={() => setHoveringShoe(false)}
         />
 
-        <p className="absolute bottom-35 left-1/2 text-white/60 text-xs -translate-x-1/2 pointer-events-none md:bottom-10 sm:bottom-18">
+        <p className="absolute bottom-30 left-1/2 text-white/60 text-xs -translate-x-1/2 pointer-events-none md:bottom-10 sm:bottom-18">
           Press and Hold to interact with the 3D shoe
         </p>
 
@@ -233,7 +233,7 @@ export default function Hero({ nextSectionRef }) {
           transition: { repeat: Infinity, duration: 2 },
         }}
         onClick={scrollToNext}
-        className="md:hidden absolute bottom-20 sm:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
+        className="md:hidden absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
       >
         <ArrowDownToLine className="w-4 h-4 mr-2" />
       </motion.button>
