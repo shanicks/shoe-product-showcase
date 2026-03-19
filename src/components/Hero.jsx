@@ -229,7 +229,7 @@ export default function Hero({ nextSectionRef }) {
           transition: { repeat: Infinity, duration: 2 },
         }}
         onClick={scrollToNext}
-        className="hidden sm:block absolute bottom-20 sm:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
+        className="md:hidden absolute bottom-20 sm:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
       >
         <ArrowDownToLine className="w-4 h-4 mr-2" />
       </motion.button>

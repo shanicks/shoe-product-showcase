@@ -55,7 +55,7 @@ export default function Header() {
             <SheetContent
               side="right"
               showCloseButton={false}
-              className="w-[280px] h-[75vh] top-[45%] -translate-y-1/2  right-4 rounded-2xl bg-white/10 backdrop-blur-1xl border-r border-white/20 text-white p-6relativeoverflow-hidden"
+              className="w-[280px] h-[75vh] top-[45%] -translate-y-1/2  right-4 rounded-xl bg-white/10 backdrop-blur-lg shadow border border-white/20 bg-white/10 text-white"
             >
               <div className="flex flex-col h-full">
                 {/* Header */}
