@@ -97,7 +97,7 @@ export default function Hero({ nextSectionRef }) {
           onHoverEnd={() => setHoveringShoe(false)}
         />
 
-        <p className="absolute bottom-10 sm:bottom-16 md:bottom-10 left-1/2 -translate-x-1/2 text-white/60 text-xs text-center">
+        <p className="absolute bottom-15 sm:bottom-16 md:bottom-10 left-1/2 -translate-x-1/2 text-white/60 text-xs text-center">
           Press and Hold to interact with the 3D shoe
         </p>
 
@@ -220,7 +220,7 @@ export default function Hero({ nextSectionRef }) {
       </div>
       <Button
         size="lg"
-        className="cursor-pointer px-8 py-8 text-lg backdrop-blur-lg rounded-xl shadow border border-white/20 bg-[#B85D0A] text-white absolute rounded-full bottom-40 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
+        className="cursor-pointer px-8 py-8 text-lg backdrop-blur-lg rounded-xl shadow border border-white/20 bg-[#B85D0A] text-white absolute rounded-full bottom-35 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 px-6 py-3"
       >
         Buy Now
       </Button>
