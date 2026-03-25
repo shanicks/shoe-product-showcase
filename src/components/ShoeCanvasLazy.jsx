@@ -17,16 +17,14 @@ const isDev = import.meta.env.VITE_DEV;
 
 // const modelUrl = isDev ? import.meta.env.VITE_BLOB_URL : "/api/model";
 // const modelUrl = "/sneaker_model2_compressed.glb";
-const modelUrl = "/sneaker_op4.glb";
+const modelUrl = "/output.glb";
 
 const PART_MAP = {
   body: ["body"],
   sole: ["sole"],
   plastic: ["plastic"],
   laces: [
-    "tripo_node_f012b5ce-2bcc-4439-890d-95d08e9c7f49002",
-    "tripo_node_f012b5ce-2bcc-4439-890d-95d08e9c7f49003",
-    "tripo_node_f012b5ce-2bcc-4439-890d-95d08e9c7f49004",
+    "laces"
   ],
 };
 function ShoeModel({ isUserInteracting, onLoad, scale, selectedPart, color }) {
@@ -66,7 +64,11 @@ function ShoeModel({ isUserInteracting, onLoad, scale, selectedPart, color }) {
     scene.traverse((child) => {
       if (!child.isMesh) return;
 
-      const targets = PART_MAP[selectedPart];
+      let targets = PART_MAP[selectedPart];
+
+      if (selectedPart === "body") {
+        targets = [...PART_MAP.body, ...PART_MAP.laces];
+      }
 
       if (targets.includes(child.name)) {
         const mat = child.material;
@@ -108,7 +110,7 @@ function ShoeModel({ isUserInteracting, onLoad, scale, selectedPart, color }) {
 
 export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
   const [selectedPart, setSelectedPart] = useState("body");
-  const [color, setColor] = useState("#ff0000");
+  const [color, setColor] = useState("#E6D6B8");
   const [interacting, setInteracting] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
   const [cameraConfig, setCameraConfig] = useState({
