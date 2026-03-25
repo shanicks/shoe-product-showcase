@@ -1,9 +1,10 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
 import { Suspense, useRef, useLayoutEffect, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Box3, Vector3 } from "three";
+import { Box3, Vector3, SRGBColorSpace, ACESFilmicToneMapping } from "three";
 import ModelLoader from "./ModelLoader";
+import CustomizerUI from "./CustomizerUI";
 
 // THREE.DefaultLoadingManager.crossOrigin = "anonymous";
 // const blob = await head(import.meta.env.VITE_BLOB_URL, {
@@ -16,9 +17,19 @@ const isDev = import.meta.env.VITE_DEV;
 
 // const modelUrl = isDev ? import.meta.env.VITE_BLOB_URL : "/api/model";
 // const modelUrl = "/sneaker_model2_compressed.glb";
-const modelUrl = "/sneaker_model2_compressed.glb";
+const modelUrl = "/sneaker_op4.glb";
 
-function ShoeModel({ isUserInteracting, onLoad, scale }) {
+const PART_MAP = {
+  body: ["body"],
+  sole: ["sole"],
+  plastic: ["plastic"],
+  laces: [
+    "tripo_node_f012b5ce-2bcc-4439-890d-95d08e9c7f49002",
+    "tripo_node_f012b5ce-2bcc-4439-890d-95d08e9c7f49003",
+    "tripo_node_f012b5ce-2bcc-4439-890d-95d08e9c7f49004",
+  ],
+};
+function ShoeModel({ isUserInteracting, onLoad, scale, selectedPart, color }) {
   const { scene } = useGLTF(modelUrl, true);
   const modelRef = useRef();
 
@@ -29,18 +40,48 @@ function ShoeModel({ isUserInteracting, onLoad, scale }) {
     }
   }, [scene, onLoad]);
 
-  // Center model
   useLayoutEffect(() => {
     const box = new Box3().setFromObject(scene);
     const center = new Vector3();
     box.getCenter(center);
     scene.position.sub(center);
 
-    // Tilt shoe to -30 degrees on x-axis
-    // scene.rotation.x = Math.PI / 4;
-    // scene.rotation.y = -Math.PI / 4;
+    scene.traverse((child) => {
+      if (child.isMesh && child.material) {
+        const mat = child.material;
+
+        if (mat.map) mat.map.colorSpace = SRGBColorSpace;
+        if (mat.emissiveMap) mat.emissiveMap.colorSpace = SRGBColorSpace;
+
+        if (mat.transmission > 0) {
+          mat.transparent = true;
+          mat.depthWrite = false;
+          mat.envMapIntensity = 1.5;
+        }
+      }
+    });
   }, [scene]);
 
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (!child.isMesh) return;
+
+      const targets = PART_MAP[selectedPart];
+
+      if (targets.includes(child.name)) {
+        const mat = child.material;
+
+        if (selectedPart === "plastic") {
+          mat.color.set(color);
+          return;
+        }
+
+        if (mat.map) mat.map = null;
+        mat.color.set(color);
+        mat.needsUpdate = true;
+      }
+    });
+  }, [color, selectedPart, scene]);
   // Auto rotation
   useFrame((state) => {
     if (!isUserInteracting && modelRef.current) {
@@ -66,6 +107,8 @@ function ShoeModel({ isUserInteracting, onLoad, scale }) {
 // useGLTF.preload(modelUrl);
 
 export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
+  const [selectedPart, setSelectedPart] = useState("body");
+  const [color, setColor] = useState("#ff0000");
   const [interacting, setInteracting] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
   const [cameraConfig, setCameraConfig] = useState({
@@ -121,6 +164,12 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
   return (
     <>
       {!modelLoaded && <ModelLoader />}
+      <CustomizerUI
+        selectedPart={selectedPart}
+        setSelectedPart={setSelectedPart}
+        color={color}
+        setColor={setColor}
+      />
       {
         <motion.div
           className="w-full h-full cursor-grab active:cursor-grabbing"
@@ -134,19 +183,23 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
             dpr={[1, 1.5]} // limit pixel ratio
             performance={{ min: 0.5 }}
             camera={{ position: cameraConfig.position, fov: cameraConfig.fov }}
+            gl={{
+              outputColorSpace: SRGBColorSpace,
+              toneMapping: ACESFilmicToneMapping,
+            }}
           >
             {/* Lighting setup (better for product showcase) */}
             <ambientLight intensity={2} />
 
             <directionalLight
               position={[120, 100, 80]}
-              intensity={10}
+              intensity={5}
               color="#FFFFFF"
             />
 
             <directionalLight
               position={[-80, 40, -60]}
-              intensity={10}
+              intensity={5}
               color="#FFFFFF"
             />
 
@@ -155,7 +208,9 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
                 isUserInteracting={interacting}
                 onLoad={() => setModelLoaded(true)}
                 scale={cameraConfig.scale}
-                // scale={120}
+                // scale={1}
+                selectedPart={selectedPart}
+                color={color}
               />
 
               {/* <Environment preset="studio" /> */}
