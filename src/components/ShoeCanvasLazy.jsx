@@ -23,9 +23,7 @@ const PART_MAP = {
   body: ["body"],
   sole: ["sole"],
   plastic: ["plastic"],
-  laces: [
-    "laces"
-  ],
+  laces: ["laces"],
 };
 function ShoeModel({ isUserInteracting, onLoad, scale, selectedPart, color }) {
   const { scene } = useGLTF(modelUrl, true);
@@ -166,12 +164,12 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
   return (
     <>
       {!modelLoaded && <ModelLoader />}
-      <CustomizerUI
+      {/* <CustomizerUI
         selectedPart={selectedPart}
         setSelectedPart={setSelectedPart}
         color={color}
         setColor={setColor}
-      />
+      /> */}
       {
         <motion.div
           className="w-full h-full cursor-grab active:cursor-grabbing"

@@ -226,7 +226,7 @@ export default function Hero({ nextSectionRef }) {
       </Button> */}
 
       <motion.button
-        className="cursor-pointer absolute bottom-35 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 border-3 border-white overflow-hidden rounded-full px-8 py-4 text-white font-semibold"
+        className="cursor-pointer absolute bottom-35 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 border-2 border-white overflow-hidden rounded-full px-8 py-4 text-white font-semibold"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -237,7 +237,10 @@ export default function Hero({ nextSectionRef }) {
         <motion.div
           className="absolute inset-0 rounded-full"
           style={{
-            background: "linear-gradient(120deg, #02A2ED, #B55B09, #02A2ED)",
+            // background: "linear-gradient(120deg, #02A2ED, #B55B09, #02A2ED)",
+            // background: "linear-gradient(135deg, #1f8a9e, #f97316)",
+            background: "linear-gradient(135deg, #6d28d9, #f97316)",
+            // background: "linear-gradient(135deg, #1e1b6a, #4f46e5, #7c3aed)",
             backgroundSize: "200% 200%",
           }}
           animate={{
@@ -254,7 +257,10 @@ export default function Hero({ nextSectionRef }) {
         <motion.div
           className="absolute inset-0 rounded-full blur-xl opacity-40"
           style={{
-            background: "linear-gradient(120deg, #02A2ED, #B55B09, #02A2ED)",
+            // background: "linear-gradient(120deg, #02A2ED, #B55B09, #02A2ED)",
+            // background: "linear-gradient(135deg, #1f8a9e, #f97316)",
+
+            background: "linear-gradient(135deg, #f97316, #6d28d9)",
             backgroundSize: "200% 200%",
           }}
           animate={{

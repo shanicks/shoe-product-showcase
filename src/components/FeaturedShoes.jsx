@@ -48,7 +48,7 @@ const FeaturedShoes = forwardRef((props, ref) => {
     >
       {/* Background Typography */}
       <h2 className="absolute text-[200px] md:text-[280px] font-extrabold opacity-5 select-none pointer-events-none font-bebas -right-20">
-        STRIDE
+        KIXORA
       </h2>
 
       <div className="container mx-auto px-6 relative z-10">

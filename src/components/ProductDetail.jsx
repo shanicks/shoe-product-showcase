@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ShoppingCart, Heart } from "lucide-react";
+import ShoeCanvas from "./ShoeCanvasLazy";
 
 export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState(null);
@@ -29,7 +30,7 @@ export default function ProductDetail() {
     <section className="relative w-full py-20 bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden">
       {/* Background Typography */}
       <h2 className="absolute text-[200px] md:text-[280px] font-extrabold opacity-5 select-none pointer-events-none font-bebas -right-20">
-        STRIDE
+        KIXORA
       </h2>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -46,6 +47,7 @@ export default function ProductDetail() {
               alt="Air Flow X"
               className="w-full max-w-sm h-auto object-cover"
             />
+            {/* <ShoeCanvas className="w-full h-full object-cover" /> */}
           </motion.div>
 
           {/* Right: Product Info */}
@@ -65,9 +67,9 @@ export default function ProductDetail() {
                 <span className="text-text-muted line-through">$189</span>
               </div>
               <p className="text-text-secondary mt-4 leading-relaxed">
-                A lightweight neo runner designed for speed, comfort and everyday
-                performance. Engineered with breathable mesh and responsive
-                cushioning with sleek silhouette.
+                A lightweight neo runner designed for speed, comfort and
+                everyday performance. Engineered with breathable mesh and
+                responsive cushioning with sleek silhouette.
               </p>
             </div>
 

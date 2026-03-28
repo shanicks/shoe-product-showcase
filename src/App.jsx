@@ -1,11 +1,12 @@
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import FeaturedShoes from "./components/FeaturedShoes";
-import BestSellers from "./components/BestSellers";
 import ProductDetail from "./components/ProductDetail";
-import Customizer from "./components/Customizer";
 import CustomCusor from "./components/CustomCursor";
+import WhyChooseUs from "./components/WhyChooseUs";
+import Footer from "./components/Footer";
 import { useRef } from "react";
+import ReviewsAndFAQ from "./components/ReviewFAQ";
 
 export default function App() {
   const nextSectionRef = useRef(null);
@@ -16,9 +17,10 @@ export default function App() {
         <Header />
         <Hero nextSectionRef={nextSectionRef} />
         <FeaturedShoes ref={nextSectionRef} />
-        <BestSellers />
+        <WhyChooseUs />
         <ProductDetail />
-        <Customizer />
+        <ReviewsAndFAQ />
+        <Footer />
       </div>
     </>
   );
