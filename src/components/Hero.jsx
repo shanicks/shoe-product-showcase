@@ -183,9 +183,9 @@ export default function Hero({ nextSectionRef }) {
           playsInline
           preload="auto"
           poster="/shoe_brown.png"
-          className="z-20 max-w-[500px]absolute right-5 object-contain pointer-events-none"
+          className="z-20 max-w-[500px] absolute right-5 object-contain pointer-events-none"
         >
-          <source src="/spinning_shoe2.webm" type="video/webm" />
+          <source src="/spinning_shoe3.webm" type="video/webm" />
         </video>
 
         {/* <p className="absolute bottom-35 sm:bottom-16 md:bottom-25 left-1/2 -translate-x-[60%] md:-translate-x-[65%] text-white/60 text-xs text-center">
