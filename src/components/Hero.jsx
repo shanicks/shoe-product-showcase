@@ -97,14 +97,14 @@ export default function Hero({ nextSectionRef }) {
         <Twitter size={18} className="text-white/60 hover:text-white" />
         <Instagram size={18} className="text-white/60 hover:text-white" />
       </div> */}
-      <div className="absolute flex flex-col max-w-[500px] leading-tight sm:top-10% sm:left-7 h-full items-start justify-end sm:justify-center">
-        <h1 className="z-5 ml-0 sm:z-5 sm:ml-20 sm:text-[80px] text-[60px] font-bebas sm:text-left text-left">
+      <div className="absolute flex flex-col w-full sm:max-w-[500px] leading-tight left-0 sm:top-10% sm:left-7 h-full items-start justify-end sm:justify-center">
+        <h1 className="z-5 ml-7 sm:z-5 sm:ml-20 sm:text-[80px] text-[60px] font-bebas sm:text-left text-left">
           NOT FOR <br /> STANDING STILL.
         </h1>
-        <h2 className="z-5 ml-0 sm:ml-20 mb-0 text-[#2F1005] text-white drop-shadow-lg sm:tracking-[38%] tracking-[10%] text-left ">
+        <h2 className="z-5 ml-7 sm:ml-20 mb-0 text-[#2F1005] text-white drop-shadow-lg sm:tracking-[38%] tracking-[10%] text-left ">
           Design sneakers in your colors
         </h2>
-        <div className="z-5 flex flex-row gap-3 sm:gap-4 sm:flex-row mx-auto mb-20">
+        <div className="z-5 flex flex-row gap-3 sm:gap-4 sm:flex-row ml-7 mb-20">
           <motion.button
             className={`
               mt-5
