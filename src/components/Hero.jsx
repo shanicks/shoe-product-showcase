@@ -166,7 +166,7 @@ export default function Hero({ nextSectionRef }) {
         </div>
       </div>
       {/* Shoe Container */}
-      <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center translate-x-6 md:translate-x-12">
+      <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center">
         {/* <ShoeCanvasLazy
           onHoverStart={() => setHoveringShoe(true)}
           onHoverEnd={() => setHoveringShoe(false)}
@@ -183,9 +183,9 @@ export default function Hero({ nextSectionRef }) {
           playsInline
           preload="auto"
           poster="/shoe_brown.png"
-          className="z-20 max-w-[500px] absolute right-5 object-contain pointer-events-none"
+          className=" max-w-[430px] absolute inset-0 object-contain translate-x-2 translate-y-2 sm:max-w-[800px] sm:translate-x-130 sm:-translate-y-15 sm:right-0 pointer-events-none"
         >
-          <source src="/spinning_shoe3.webm" type="video/webm" />
+          <source src="/spinning_shoe4.webm" type="video/webm" />
         </video>
 
         {/* <p className="absolute bottom-35 sm:bottom-16 md:bottom-25 left-1/2 -translate-x-[60%] md:-translate-x-[65%] text-white/60 text-xs text-center">
