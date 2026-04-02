@@ -180,6 +180,7 @@ export default function ShoeCanvas({
   });
   const controlsRef = useRef();
   const target = new Vector3(5, 0, 5);
+  let isMobile = false;
   // Responsive camera and scale settings based on window size
   useEffect(() => {
     const handleResize = () => {
@@ -195,7 +196,8 @@ export default function ShoeCanvas({
         newPosition = [0, 15, 100];
         newFov = 40;
         newScale = 14;
-        setOffset([-4, 10, 0]); // move closer on mobile
+        setOffset([-4, 10, 0]);
+        isMobile = true;
       }
       // Tablet (640px - 1024px)
       else if (width < 1024) {
@@ -298,7 +300,7 @@ export default function ShoeCanvas({
 
             <OrbitControls
               // target={[60, 0, 40]}
-              enabled={false}
+              enabled={isMobile}
               ref={controlsRef}
               // target0={target}
               enableZoom={false}
