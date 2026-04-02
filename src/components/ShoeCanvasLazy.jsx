@@ -25,10 +25,30 @@ const PART_MAP = {
   plastic: ["plastic"],
   laces: ["laces"],
 };
-function ShoeModel({ isUserInteracting, onLoad, scale, selectedPart, color }) {
+function ShoeModel({
+  isUserInteracting,
+  onLoad,
+  scale,
+  selectedPart,
+  setSelectedPart,
+  color,
+  setColor,
+  offset,
+}) {
   const { scene } = useGLTF(modelUrl, true);
   const modelRef = useRef();
-
+  const rotationRef = useRef(0);
+  const rotationCount = useRef(0);
+  const colorIndex = useRef(0);
+  const centerRef = useRef(new Vector3());
+  const basePosition = offset; // left, down, forward
+  const colors = [
+    ["#E6D6B8", "#783F0F"],
+    ["#C9C9C7", "#C9C9C7"],
+    ["#171717", "#171717"],
+    ["#912934", "#912934"],
+    ["#193865", "#193865"],
+  ];
   // Call onLoad when model is ready
   useLayoutEffect(() => {
     if (scene && onLoad) {
@@ -40,7 +60,9 @@ function ShoeModel({ isUserInteracting, onLoad, scale, selectedPart, color }) {
     const box = new Box3().setFromObject(scene);
     const center = new Vector3();
     box.getCenter(center);
-    scene.position.sub(center);
+    // scene.position.sub(center);
+
+    centerRef.current = center;
 
     scene.traverse((child) => {
       if (child.isMesh && child.material) {
@@ -85,38 +107,79 @@ function ShoeModel({ isUserInteracting, onLoad, scale, selectedPart, color }) {
   // Auto rotation
   useFrame((state) => {
     if (!isUserInteracting && modelRef.current) {
-      modelRef.current.rotation.y += 0.003;
+      modelRef.current.rotation.y += 0.013;
+    }
+    // track rotation
+    rotationRef.current += 0.013;
+    // one full rotation = 2π
+    if (rotationRef.current >= Math.PI * 2) {
+      rotationRef.current = 0;
+      rotationCount.current += 1;
+    }
+
+    // after 2 rotations → change color
+    if (rotationCount.current === 2) {
+      rotationCount.current = 0;
+
+      const [bodyColor, soleColor] = colors[colorIndex.current];
+
+      // apply BODY first
+      setSelectedPart("body");
+      setColor(bodyColor);
+
+      // apply SOLE with slight delay (break batching)
+      setTimeout(() => {
+        setSelectedPart("sole");
+        setColor(soleColor);
+      }, 50);
+
+      // move to next color
+      colorIndex.current = (colorIndex.current + 1) % colors.length;
     }
 
     // subtle floating motion
     if (modelRef.current) {
-      modelRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.05;
+      modelRef.current.position.y =
+        basePosition[1] + Math.sin(state.clock.elapsedTime) * 2;
     }
   });
 
   return (
-    <primitive
-      ref={modelRef}
-      object={scene}
-      scale={scale}
-      position={[0, 0, 0]}
-    />
+    <group ref={modelRef} position={basePosition} scale={scale}>
+      <group
+        position={[
+          -centerRef.current.x,
+          -centerRef.current.y,
+          -centerRef.current.z,
+        ]}
+      >
+        <primitive object={scene} />
+      </group>
+    </group>
   );
 }
 
 // useGLTF.preload(modelUrl);
 
-export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
-  const [selectedPart, setSelectedPart] = useState("body");
-  const [color, setColor] = useState("#E6D6B8");
+export default function ShoeCanvas({
+  onHoverStart,
+  onHoverEnd,
+  selectedPart,
+  setSelectedPart,
+  color,
+  setColor,
+}) {
+  const [offset, setOffset] = useState([0, 0, 0]);
   const [interacting, setInteracting] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
   const [cameraConfig, setCameraConfig] = useState({
     position: [0, 20, 160],
     fov: 35,
     scale: 80,
+    // target: offset,
   });
-
+  const controlsRef = useRef();
+  const target = new Vector3(5, 0, 5);
   // Responsive camera and scale settings based on window size
   useEffect(() => {
     const handleResize = () => {
@@ -132,18 +195,21 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
         newPosition = [0, 15, 100];
         newFov = 40;
         newScale = 12;
+        setOffset([0, 0, 0]); // move closer on mobile
       }
       // Tablet (640px - 1024px)
       else if (width < 1024) {
         newPosition = [0, 18, 130];
         newFov = 37;
         newScale = 20;
+        setOffset([0, 0, 0]); // slight adjustment for medium screens
       }
       // Desktop (> 1024px)
       else {
         newPosition = [0, 20, 160];
         newFov = 35;
         newScale = 28;
+        setOffset([27, 5, 0]); // default offset for large screens
       }
 
       setCameraConfig({
@@ -158,7 +224,18 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
 
     // Add resize listener
     window.addEventListener("resize", handleResize);
+
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (controlsRef.current) {
+        console.log("Orbit Target:", controlsRef.current.target);
+      } else {
+        console.log("Controls not ready yet");
+      }
+    }, 500);
   }, []);
 
   return (
@@ -172,7 +249,7 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
       /> */}
       {
         <motion.div
-          className="w-full h-full cursor-grab active:cursor-grabbing"
+          className="w-full h-[60vh] md:h-[90vh] cursor-grab active:cursor-grabbing"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -189,17 +266,17 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
             }}
           >
             {/* Lighting setup (better for product showcase) */}
-            <ambientLight intensity={2} />
+            <ambientLight intensity={1} />
 
             <directionalLight
               position={[120, 100, 80]}
-              intensity={5}
+              intensity={3}
               color="#FFFFFF"
             />
 
             <directionalLight
               position={[-80, 40, -60]}
-              intensity={5}
+              intensity={2}
               color="#FFFFFF"
             />
 
@@ -211,12 +288,19 @@ export default function ShoeCanvas({ onHoverStart, onHoverEnd }) {
                 // scale={1}
                 selectedPart={selectedPart}
                 color={color}
+                setSelectedPart={setSelectedPart}
+                setColor={setColor}
+                offset={offset}
               />
 
               {/* <Environment preset="studio" /> */}
             </Suspense>
 
             <OrbitControls
+              // target={[60, 0, 40]}
+              enabled={false}
+              ref={controlsRef}
+              // target0={target}
               enableZoom={false}
               enablePan={false}
               enableDamping

@@ -16,6 +16,8 @@ export default function Hero({ nextSectionRef }) {
   const [viewBox, setViewBox] = useState("0 0 1200 300"); // default desktop
   const [isDesktop, setIsDesktop] = useState(true);
   const [isTablet, setIsTablet] = useState(false);
+  const [selectedPart, setSelectedPart] = useState("body");
+  const [color, setColor] = useState("#E6D6B8");
   useEffect(() => {
     const updateViewBox = () => {
       const width = window.innerWidth;
@@ -47,7 +49,13 @@ export default function Hero({ nextSectionRef }) {
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto -translate-y-26 sm:-translate-y-12 md:translate-y-0">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
-        <svg
+        <text
+          className="text-white text-[280px] sm:text-[260px] -sm:translate-y-[15%] sm:translate-x-[5%] translate-y-[10%] -translate-x-[3%] font-bebas font-bold opacity-3"
+          style={{ letterSpacing: "55px" }}
+        >
+          KIXORA
+        </text>
+        {/* <svg
           viewBox={viewBox}
           className="w-[800px] sm:w-[1100px] md:w-[1600px] lg:w-[2000px]"
         >
@@ -80,31 +88,102 @@ export default function Hero({ nextSectionRef }) {
               <source src="/shoe_video.mp4" type="video/mp4" />
             </video>
           </foreignObject>
-        </svg>
+        </svg> */}
       </div>
 
       {/* Social Icons */}
-      <div className="hidden md:flex absolute z-10 left-4 md:left-10 flex-col gap-12 md:gap-6 mb-8 md:mb-0 cursor-pointer">
+      {/* <div className="hidden md:flex absolute z-10 left-4 md:left-10 flex-col gap-12 md:gap-6 mb-8 md:mb-0 cursor-pointer">
         <Facebook size={18} className="text-white/60 hover:text-white" />
         <Twitter size={18} className="text-white/60 hover:text-white" />
         <Instagram size={18} className="text-white/60 hover:text-white" />
-      </div>
+      </div> */}
+      <div className="absolute flex flex-col max-w-[500px] leading-tight sm:top-10% sm:left-7 h-full items-start justify-end sm:justify-center">
+        <h1 className="z-5 sm:z-5 sm:ml-20 mb-10 sm:text-[80px] text-[40px] font-bebas sm:text-left text-center mx-auto leading-[3]">
+          NOT FOR STANDING STILL.
+        </h1>
+        <h2 className="z-5 text-center sm:ml-20 mb-30 text-[#2F1005] text-white drop-shadow-lg sm:tracking-[38%] tracking-[10%] text-center mx-auto">
+          Design sneakers in your colors
+        </h2>
+        <div className="z-5 flex flex-col gap-0 sm:gap-4 sm:flex-row mx-auto mb-20">
+          <motion.button
+            className={`
+              mt-0
+              sm:mt-4 w-max
+              px-8 py-4
+              rounded-xs
+              relative overflow-hidden
+              font-semibold
+              border border-white/20
+              backdrop-blur-md
+              cursor-pointer
+               ${
+                 color === "#E6D6B8" || color === "#C9C9C7"
+                   ? " text-[#3A1608]"
+                   : " text-white"
+               }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {/* TEXT */}
+            <span className="relative z-10">Start Designing</span>
 
+            {/* ANIMATED GRADIENT */}
+            <motion.div
+              className="absolute inset-0 rounded-xs border-2 border-white/20"
+              style={{
+                // background:
+                //   "linear-gradient(135deg, #1e1b6a, #4f46e5, #7c3aed)",
+                // background: "linear-gradient(135deg,#f97316 ,#944D1C, #2F1005)",
+                // background: "linear-gradient(135deg,#2B0E05, #2F1005)",
+                // background: "linear-gradient(135deg, #312e81, #6d28d9)",
+                // background: "linear-gradient(135deg, #4c1d95, #7c3aed)",
+                // background: "linear-gradient(135deg, #ffffff, #e5e7eb)",
+                // background: "linear-gradient(135deg, #fafaf9, #e7e5e4)",
+                // background:
+                //   "linear-gradient(135deg, #944D1C, #f97316, #944D1C)",
+                // background: "#944D1C",
+                // background: "#2F1005",
+                background: `${color}`,
+                backgroundSize: "200% 200%",
+              }}
+              // animate={{
+              //   backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              // }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.button>
+          <Button
+            variant="ghost"
+            className="mt-5 cursor-pointer text-white/80 hover:text-white hover:scale-105 border border-white/20 hover:bg-white/10 backdrop-blur-md rounded-xs px-11 py-6"
+            onClick={() => (window.location.href = "/product")}
+          >
+            Shop Sneakers
+          </Button>
+        </div>
+      </div>
       {/* Shoe Container */}
-      <div className="relative w-full max-w-[900px] h-[500px] md:h-[650px] flex items-center justify-center translate-x-6 md:translate-x-12">
+      <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center translate-x-6 md:translate-x-12">
         <ShoeCanvasLazy
           onHoverStart={() => setHoveringShoe(true)}
           onHoverEnd={() => setHoveringShoe(false)}
+          selectedPart={selectedPart}
+          setSelectedPart={setSelectedPart}
+          color={color}
+          setColor={setColor}
         />
 
-        <p className="absolute bottom-35 sm:bottom-16 md:bottom-25 left-1/2 -translate-x-[60%] md:-translate-x-[65%] text-white/60 text-xs text-center">
+        {/* <p className="absolute bottom-35 sm:bottom-16 md:bottom-25 left-1/2 -translate-x-[60%] md:-translate-x-[65%] text-white/60 text-xs text-center">
           Press and Hold to interact with the 3D shoe
-        </p>
+        </p> */}
 
         {/* Feature Label 1 */}
-        <div className="absolute top-[12%] right-[28%] sm:right-[24%] md:right-[30%] text-sm font-inter">
+        {/* <div className="absolute top-[12%] right-[28%] sm:right-[24%] md:right-[30%] text-sm font-inter">
           <svg
-            className="absolute -left-6 top-6 sm:-top-2 w-8 h-[200px] md:h-[300px] text-white"
+            className="absolute -left-6 top-6 sm:-top-2 w-8 h-[200px] md:h-[300px] text-white/50"
             viewBox="0 0 30 300"
             fill="none"
             stroke="currentColor"
@@ -125,13 +204,13 @@ export default function Hero({ nextSectionRef }) {
           </svg>
 
           <p className="font-semibold ml-4 mt-4 sm:-mt-4">AIR FLOW X</p>
-          <p className="text-white/70 ml-4 -mt-1">$129</p>
-        </div>
+          <p className="text-white ml-4 -mt-1">$129</p>
+        </div> */}
 
         {/* Feature Label 2 */}
-        <div className="absolute bottom-[18%] left-[28%] sm:left-[24%] md:left-[30%] text-sm font-inter">
+        {/* <div className="absolute bottom-[18%] left-[28%] sm:left-[24%] md:left-[30%] text-sm font-inter">
           <svg
-            className="absolute -right-6 bottom-6 sm:-bottom-2 w-8 h-[160px] md:h-[240px] text-white"
+            className="absolute -right-6 bottom-6 sm:-bottom-2 w-8 h-[160px] md:h-[240px] text-white/50"
             style={{ transform: "rotate(180deg)" }}
             viewBox="0 0 30 240"
             fill="none"
@@ -156,30 +235,30 @@ export default function Hero({ nextSectionRef }) {
             A lightweight neo runner designed for speed.
           </p>
         </div>
-      </div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+      </div> */}
         {/* SVG Connector */}
+        {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
         <svg
-          className="w-[600px] h-[400px]"
+          className="w-[600px] h-[400px] text-white/50"
           viewBox="0 0 600 400"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
-        >
-          {/* Center Dot */}
-          <motion.circle
+        > */}
+        {/* Center Dot */}
+        {/* <motion.circle
             cx="300"
             cy="200"
-            r="4"
-            fill="white"
+            r="6"
+            fill="white/50"
             initial={isDesktop ? { scale: 0 } : false}
             animate={{ scale: showUI ? 1 : 0 }}
             transition={{ duration: 0.2 }}
-          />
+          /> */}
 
-          {/* Diagonal Line */}
-          <motion.line
+        {/* Diagonal Line */}
+        {/* <motion.line
             x1="300"
             y1="200"
             x2={isDesktop ? "550" : isTablet ? "450" : "350"}
@@ -188,10 +267,10 @@ export default function Hero({ nextSectionRef }) {
             initial={isDesktop ? { pathLength: 0 } : false}
             animate={{ pathLength: showUI ? 1 : 0 }}
             transition={{ duration: 0.5, delay: isDesktop ? 0.2 : 0 }}
-          />
+          /> */}
 
-          {/* Horizontal Line */}
-          <motion.line
+        {/* Horizontal Line */}
+        {/* <motion.line
             x1={isDesktop ? "550" : isTablet ? "450" : "350"}
             y1={isDesktop ? "350" : isTablet ? "350" : "250"}
             x2={isDesktop ? "900" : isTablet ? "700" : "400"}
@@ -200,11 +279,11 @@ export default function Hero({ nextSectionRef }) {
             initial={isDesktop ? { pathLength: 0 } : false}
             animate={{ pathLength: showUI ? 1 : 0 }}
             transition={{ duration: 0.3, delay: isDesktop ? 0.7 : 0 }}
-          />
-        </svg>
+          /> */}
+        {/* </svg> */}
 
         {/* Buy Now Button */}
-        <motion.button
+        {/* <motion.button
           className="pointer-events-auto cursor-pointer absolute left-[400px] sm:left-[500px] md:left-[600px] top-[225px] sm:top-[257px] md:top-[308px] w-[45px] h-[45px] md:w-[80px] md:h-[80px] rounded-full text-white font-semibold flex items-center justify-center mr-10 text-xs md:text-sm text-center"
           style={{ backgroundColor: "#B85D0A" }}
           initial={isDesktop ? { scale: 0, opacity: 0 } : false}
@@ -216,7 +295,7 @@ export default function Hero({ nextSectionRef }) {
           onClick={() => alert("Buy Now clicked!")}
         >
           80% OFF
-        </motion.button>
+        </motion.button> */}
       </div>
       {/* <Button
         size="lg"
@@ -226,12 +305,12 @@ export default function Hero({ nextSectionRef }) {
       </Button> */}
 
       <motion.button
-        className="cursor-pointer absolute bottom-35 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 border-2 border-white overflow-hidden rounded-full px-8 py-4 text-white font-semibold"
+        className="hidden cursor-pointer absolute bottom-35 sm:bottom-25 md:bottom-10 left-1/2 -translate-x-1/2 overflow-hidden rounded-full px-8 py-4 text-white font-semibold"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
         {/* Text */}
-        <span className="relative z-10">Buy Now</span>
+        <span className="relative z-10">Shop Now</span>
 
         {/* Animated Gradient Background */}
         <motion.div
@@ -239,7 +318,9 @@ export default function Hero({ nextSectionRef }) {
           style={{
             // background: "linear-gradient(120deg, #02A2ED, #B55B09, #02A2ED)",
             // background: "linear-gradient(135deg, #1f8a9e, #f97316)",
-            background: "linear-gradient(135deg, #6d28d9, #f97316)",
+            // background: "linear-gradient(135deg, #6d28d9, #f97316)",
+            background: "linear-gradient(135deg, #6d28d9, #2F1005)",
+            // background: "#2F1005",
             // background: "linear-gradient(135deg, #1e1b6a, #4f46e5, #7c3aed)",
             backgroundSize: "200% 200%",
           }}
@@ -248,26 +329,6 @@ export default function Hero({ nextSectionRef }) {
           }}
           transition={{
             duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* Glow Layer */}
-        <motion.div
-          className="absolute inset-0 rounded-full blur-xl opacity-40"
-          style={{
-            // background: "linear-gradient(120deg, #02A2ED, #B55B09, #02A2ED)",
-            // background: "linear-gradient(135deg, #1f8a9e, #f97316)",
-
-            background: "linear-gradient(135deg, #f97316, #6d28d9)",
-            backgroundSize: "200% 200%",
-          }}
-          animate={{
-            backgroundPosition: ["100% 50%", "0% 50%", "100% 50%"],
-          }}
-          transition={{
-            duration: 6,
             repeat: Infinity,
             ease: "easeInOut",
           }}

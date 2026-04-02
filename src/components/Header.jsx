@@ -19,12 +19,12 @@ export default function Header({ isLogged }) {
   });
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50">
-      <div className="container mx-auto px-6 py-6 flex items-center justify-between">
+    <header className="transition duration-300 fixed top-0 left-0 w-full z-50">
+      <div className="w-full px-0 py-6 flex items-center justify-between">
         {/* Logo */}
-        <div className="text-2xl font-bold tracking-widest font-bebas flex items-center">
+        <div className="ml-7 text-2xl font-bold tracking-widest font-bebas flex items-center">
           KIXORA
-          <span className="ml-1 w-2 h-2 bg-sky-500 rounded-full translate-y-[3px]"></span>
+          <span className="ml-1 w-2 h-2 bg-[#944D1C] rounded-full translate-y-[3px]"></span>
         </div>
 
         {/* Navigation */}
@@ -36,12 +36,12 @@ export default function Header({ isLogged }) {
         </nav>
 
         {/* Icons */}
-        <div className="flex gap-6 items-center text-white/90">
+        <div className="flex gap-6 items-center text-white/90 mr-7 ">
           <Bell size={20} className="cursor-pointer hover:text-white" />
           <ShoppingCart size={20} className="cursor-pointer hover:text-white" />
 
           {/* Desktop User Dropdown */}
-          <div className="hidden md:block">
+          <div className="hidden md:block ">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button>
@@ -64,12 +64,18 @@ export default function Header({ isLogged }) {
                     <DropdownMenuItem className="cursor-pointer hover:bg-white/10 focus:bg-white/10">
                       Returns & Exchanges
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer hover:bg-white/10 focus:bg-white/10">
+                    <DropdownMenuItem
+                      onClick={() => (window.location.href = "/logout")}
+                      className="cursor-pointer hover:bg-white/10 focus:bg-white/10"
+                    >
                       Logout
                     </DropdownMenuItem>
                   </>
                 ) : (
-                  <DropdownMenuItem className="cursor-pointer bg-gradient-to-r from-purple-600 to-pink-500 text-white hover:from-violet-600 hover:to-orange-400 hover:text-white">
+                  <DropdownMenuItem
+                    onClick={() => (window.location.href = "/login")}
+                    className="cursor-pointer bg-[#783F0F] text-white"
+                  >
                     Login
                   </DropdownMenuItem>
                 )}
@@ -102,11 +108,10 @@ export default function Header({ isLogged }) {
                     </>
                   ) : (
                     <Button
-                      variant="outline"
-                      size="sm"
-                      className="cursor-pointer hover:bg-white/20 transition text-gray-800"
+                      onClick={() => (window.location.href = "/login")}
+                      className="cursor-pointer bg-gradient-to-r from-purple-600 to-pink-500 text-white hover:from-violet-600 hover:to-orange-400 hover:text-white"
                     >
-                      Signup/Login
+                      Login
                     </Button>
                   )}
                 </div>
@@ -130,7 +135,9 @@ export default function Header({ isLogged }) {
                 {isLogged && (
                   <div className="flex flex-col gap-3 text-white/80">
                     <a className="hover:text-white transition">My Orders</a>
-                    <a className="hover:text-white transition">Logout</a>
+                    <a href="/logout" className="hover:text-white transition">
+                      Logout
+                    </a>
                   </div>
                 )}
               </div>
@@ -140,12 +147,12 @@ export default function Header({ isLogged }) {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="fixed z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 h-[80px] w-[2px] bg-white/40 overflow-hidden">
+      {/* <div className="hidden absolute z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 h-[80px] w-[2px] bg-white/40 overflow-hidden">
         <motion.div
           style={{ scaleY }}
           className="origin-top w-full h-full bg-white"
         />
-      </div>
+      </div> */}
     </header>
   );
 }

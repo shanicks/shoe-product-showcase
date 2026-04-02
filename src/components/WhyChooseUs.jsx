@@ -15,31 +15,37 @@ const features = [
     icon: Palette,
     title: "Your Style. Your Colors.",
     desc: "Design your own pair with custom color combinations.",
+    bg: "bg-[url('/theme0.png')]",
   },
   {
     icon: Footprints,
     title: "Comfort That Keeps Up",
     desc: "Cushioned for long days, every day.",
+    bg: "bg-[url('/theme1.png')]",
   },
   {
     icon: ShieldCheck,
     title: "Made to Last",
     desc: "Durable materials and solid construction.",
+    bg: "bg-[url('/theme2.png')]",
   },
   {
     icon: Link,
     title: "Goes With Everything",
     desc: "Clean design that fits every outfit.",
+    bg: "bg-[url('/theme3.png')]",
   },
   {
     icon: RefreshCw,
     title: "Risk-Free Try",
     desc: "Easy returns and exchanges.",
+    bg: "bg-[url('/theme4.png')]",
   },
   {
     icon: Zap,
     title: "Designed for Speed",
     desc: "A lightweight runner engineered for performance.",
+    bg: "bg-[url('/theme5.png')]",
   },
 ];
 
@@ -61,7 +67,7 @@ export default function WhyChooseUs() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.5 }}
-          className="mt-4 text-muted-foreground text-lg"
+          className="mt-2 text-muted-foreground text-lg"
         >
           Discover the Kixora difference - meticulously crafted for you.
         </motion.p>
@@ -77,14 +83,20 @@ export default function WhyChooseUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
               >
-                <Card className="rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-inherit border border-white text-white">
-                  <CardContent className="flex flex-col items-center text-center p-6 space-y-4">
-                    <Icon className="w-8 h-8 text-white" />
-                    <h3 className="font-semibold text-lg">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {feature.desc}
-                    </p>
-                  </CardContent>
+                <Card
+                  className={`w-full h-[500px] ${feature.bg} bg-center bg-cover rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-white text-white`}
+                >
+                  <div className="bg-gradient-to-b from-black/40 to-black/1 h-full overflow-hidden rounded-t-2xl">
+                    <CardContent className="flex flex-col items-center text-center p-6 space-y-4">
+                      {/* <Icon className="w-8 h-8 text-white" /> */}
+                      <p className="font-semibold text-lg mt-5">
+                        {feature.title}
+                      </p>
+                      <p className="text-sm text-muted-foreground mb-10 p-0">
+                        {feature.desc}
+                      </p>
+                    </CardContent>
+                  </div>
                 </Card>
               </motion.div>
             );
