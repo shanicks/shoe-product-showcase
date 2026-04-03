@@ -29,12 +29,12 @@ export default function App() {
                     text-white 
                     text-[280px] sm:text-[260px]
                     sm:translate-y-[30%] sm:translate-x-[28%]
-                    translate-y-[10%] -translate-x-[3%]
+                    translate-y-[10%] -translate-x-[30%]
                     font-bebas font-bold
                     opacity-[0.03]
                     pointer-events-none
                     select-none
-                    z-10
+                    z-1
                   "
                   style={{ letterSpacing: "55px" }}
                 >
@@ -43,7 +43,7 @@ export default function App() {
                 <Hero nextSectionRef={nextSectionRef} />
                 <FeaturedShoes ref={nextSectionRef} />
                 <WhyChooseUs />
-                <ProductDetail />
+                {/* <ProductDetail /> */}
                 <ReviewsAndFAQ />
                 <Footer />
               </div>

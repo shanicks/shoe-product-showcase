@@ -47,7 +47,12 @@ export default function Hero({ nextSectionRef }) {
   // bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000]
   const showUI = isDesktop ? hoveringShoe : true;
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto -translate-y-26 sm:-translate-y-12 md:translate-y-0">
+    <section
+      className={`relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto -translate-y-26 sm:-translate-y-12 md:translate-y-0`}
+      style={{
+        background: `linear-gradient(to bottom right, ${color}, #000000)`,
+      }}
+    >
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
         {/* <svg
           viewBox={viewBox}

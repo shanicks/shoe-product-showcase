@@ -195,7 +195,7 @@ export default function ShoeCanvas({
       if (width < 640) {
         newPosition = [0, 15, 100];
         newFov = 40;
-        newScale = 14;
+        newScale = 13;
         setOffset([-4, 10, 0]);
         isMobile = true;
       }

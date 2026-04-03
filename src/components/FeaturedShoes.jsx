@@ -79,19 +79,28 @@ const FeaturedShoes = forwardRef((props, ref) => {
                 />
 
                 {/* 🔥 HOVER OVERLAY */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-100">
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition duration-100">
                   {/* BLUR / GRADIENT LAYER */}
-                  <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-
-                  {/* CTA BUTTON */}
-                  <motion.button
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    whileHover={{ scale: 1.05 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="relative z-10 px-6 py-2 rounded-sm text-sm font-semibold text-white border border-white/30 backdrop-blur-md"
-                  >
-                    View
-                  </motion.button>
+                  <div className="absolute inset-0 bg-black/40 backdrop-blur-sm " />
+                  <div className="flex flex-col gap-3 py-6">
+                    {/* CTA BUTTON */}
+                    <motion.button
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileHover={{ scale: 1.05 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="relative z-10 px-6 py-2 rounded-sm text-sm font-semibold text-white border border-white/30 backdrop-blur-md"
+                    >
+                      View
+                    </motion.button>
+                    <motion.button
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileHover={{ scale: 1.05 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="relative z-10 px-6 py-2 rounded-sm text-sm font-semibold text-white border border-white/30 backdrop-blur-md"
+                    >
+                      Add to Cart
+                    </motion.button>
+                  </div>
                 </div>
               </div>
 
