@@ -50,7 +50,7 @@ export default function Hero({ nextSectionRef }) {
     <section
       className={`relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto -translate-y-26 sm:-translate-y-12 md:translate-y-0`}
       style={{
-        background: `linear-gradient(to bottom right, ${color}, #000000)`,
+        background: `linear-gradient(to bottom right, ${color === "#E6D6B8" ? "#783F0F" : color}, #000000)`,
       }}
     >
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">

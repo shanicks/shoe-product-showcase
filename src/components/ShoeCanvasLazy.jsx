@@ -111,14 +111,14 @@ function ShoeModel({
     }
     // track rotation
     rotationRef.current += 0.013;
-    // one full rotation = 2π
-    if (rotationRef.current >= Math.PI * 2) {
+    // one full rotation = π
+    if (rotationRef.current >= Math.PI * 1) {
       rotationRef.current = 0;
       rotationCount.current += 1;
     }
 
-    // after 2 rotations → change color
-    if (rotationCount.current === 2) {
+    // after 1 rotations → change color
+    if (rotationCount.current === 1) {
       rotationCount.current = 0;
 
       const [bodyColor, soleColor] = colors[colorIndex.current];
