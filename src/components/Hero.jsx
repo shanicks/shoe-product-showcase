@@ -49,12 +49,6 @@ export default function Hero({ nextSectionRef }) {
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden touch-auto -translate-y-26 sm:-translate-y-12 md:translate-y-0">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none lg:translate-y-[45px]">
-        <text
-          className="text-white text-[280px] sm:text-[260px] sm:-translate-y-[15%] sm:translate-x-[5%] translate-y-[10%] -translate-x-[3%] font-bebas font-bold opacity-3"
-          style={{ letterSpacing: "55px" }}
-        >
-          KIXORA
-        </text>
         {/* <svg
           viewBox={viewBox}
           className="w-[800px] sm:w-[1100px] md:w-[1600px] lg:w-[2000px]"
@@ -101,8 +95,8 @@ export default function Hero({ nextSectionRef }) {
         <h1 className="z-5 ml-7 sm:z-5 sm:ml-20 sm:text-[80px] text-[60px] font-bebas sm:text-left text-left">
           NOT FOR <br /> STANDING STILL.
         </h1>
-        <h2 className="z-5 ml-7 sm:ml-20 mb-0 text-[#2F1005] text-white drop-shadow-lg sm:tracking-[38%] tracking-[10%] text-left ">
-          Design sneakers in your colors
+        <h2 className="z-5 ml-7 sm:ml-20 mb-0 text-[#2F1005] text-white drop-shadow-lg sm:tracking-[26%] tracking-[10%] text-left ">
+          Design your sneakers in your colors
         </h2>
         <div className="z-5 flex flex-row gap-3 sm:gap-4 sm:ml-20 ml-7 mb-20 ">
           <motion.button
@@ -166,27 +160,27 @@ export default function Hero({ nextSectionRef }) {
         </div>
       </div>
       {/* Shoe Container */}
-      <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center">
-        {/* <ShoeCanvasLazy
+      <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center pointer-events-none">
+        <ShoeCanvasLazy
           onHoverStart={() => setHoveringShoe(true)}
           onHoverEnd={() => setHoveringShoe(false)}
           selectedPart={selectedPart}
           setSelectedPart={setSelectedPart}
           color={color}
           setColor={setColor}
-        /> */}
+        />
 
-        <video
+        {/* <video
           autoPlay
           loop
           muted
           playsInline
           preload="auto"
           poster="/shoe_brown.png"
-          className=" max-w-[430px] absolute inset-0 object-contain translate-x-2 translate-y-2 sm:max-w-[800px] sm:translate-x-130 sm:-translate-y-15 sm:right-0 pointer-events-none"
+          className=" max-w-[430px] absolute inset-0 object-contain translate-x-1 translate-y-2 sm:max-w-[800px] sm:translate-x-130 sm:-translate-y-15 sm:right-0 pointer-events-none"
         >
           <source src="/spinning_shoe4.webm" type="video/webm" />
-        </video>
+        </video> */}
 
         {/* <p className="absolute bottom-35 sm:bottom-16 md:bottom-25 left-1/2 -translate-x-[60%] md:-translate-x-[65%] text-white/60 text-xs text-center">
           Press and Hold to interact with the 3D shoe

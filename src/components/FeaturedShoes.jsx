@@ -6,37 +6,37 @@ const featuredShoes = [
   {
     id: 1,
     name: "Air Flex X",
-    price: 139,
+    price: 2999,
     rating: 4.5,
     image: "/shoe_brown.png",
   },
   {
     id: 2,
     name: "Air Flex X",
-    price: 139,
+    price: 2999,
     rating: 4.5,
-    image: "/shoe_black.png",
+    image: "/shoe_black2.png",
   },
   {
     id: 3,
     name: "Air Flex X",
-    price: 139,
+    price: 2999,
     rating: 4.5,
-    image: "/shoe_white.png",
+    image: "/shoe_white2.png",
   },
   {
     id: 4,
     name: "Air Flex X",
-    price: 139,
+    price: 2999,
     rating: 4.5,
-    image: "/shoe_red.png",
+    image: "/shoe_red2.png",
   },
   {
     id: 5,
     name: "Air Flex X",
-    price: 139,
+    price: 2999,
     rating: 4.5,
-    image: "/shoe_blue.png",
+    image: "/shoe_blue2.png",
   },
 ];
 
@@ -47,15 +47,15 @@ const FeaturedShoes = forwardRef((props, ref) => {
       className="relative w-full py-20 bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] overflow-hidden"
     >
       {/* Background Typography */}
-      <h2 className="absolute text-[200px] md:text-[280px] font-extrabold opacity-5 select-none pointer-events-none font-bebas -right-20">
+      {/* <h2 className="absolute text-[200px] md:text-[280px] font-extrabold opacity-5 select-none pointer-events-none font-bebas -right-20">
         KIXORA
-      </h2>
+      </h2> */}
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="flex items-center gap-2 mb-12">
           <h3 className="text-xl font-bebas tracking-wider uppercase">
-            Featuring
+            Explore the Collection
           </h3>
           <ChevronRight size={20} className="text-text-secondary" />
         </div>
@@ -68,22 +68,42 @@ const FeaturedShoes = forwardRef((props, ref) => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="bg-surface-card/40 backdrop-blur-sm overflow-hidden hover:border-accent/50 transition group cursor-pointer"
+              className="relative bg-surface-card/40 overflow-hidden group cursor-pointer rounded-sm"
             >
+              {/* IMAGE */}
               <div className="aspect-square bg-surface-card/60 flex items-center justify-center overflow-hidden relative">
                 <img
                   src={shoe.image}
                   alt={shoe.name}
                   className="w-full h-full object-contain group-hover:scale-110 transition duration-300"
                 />
+
+                {/* 🔥 HOVER OVERLAY */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-100">
+                  {/* BLUR / GRADIENT LAYER */}
+                  <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+
+                  {/* CTA BUTTON */}
+                  <motion.button
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileHover={{ scale: 1.05 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className="relative z-10 px-6 py-2 rounded-sm text-sm font-semibold text-white border border-white/30 backdrop-blur-md"
+                  >
+                    View
+                  </motion.button>
+                </div>
               </div>
+
+              {/* CONTENT */}
               <div className="p-4 font-inter">
                 <h4 className="text-text-primary font-semibold text-sm">
                   {shoe.name}
                 </h4>
                 <p className="text-accent font-bold text-sm mt-2">
-                  ${shoe.price}
+                  ₹{shoe.price}
                 </p>
+
                 <div className="flex items-center gap-1 mt-2">
                   <div className="flex gap-0.5">
                     {[...Array(5)].map((_, i) => (

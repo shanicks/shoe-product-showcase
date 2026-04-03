@@ -87,12 +87,10 @@ export default function WhyChooseUs() {
                   className={`w-full h-[500px] ${feature.bg} bg-center bg-cover rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-white text-white`}
                 >
                   <div className="bg-gradient-to-b from-black/40 to-black/1 h-full overflow-hidden rounded-t-2xl">
-                    <CardContent className="flex flex-col items-center text-center p-6 space-y-4">
+                    <CardContent className="flex flex-col items-center text-center p-6 mt-5">
                       {/* <Icon className="w-8 h-8 text-white" /> */}
-                      <p className="font-semibold text-lg mt-5">
-                        {feature.title}
-                      </p>
-                      <p className="text-sm text-muted-foreground mb-10 p-0">
+                      <p className="font-semibold text-lg">{feature.title}</p>
+                      <p className="text-sm text-muted-foreground">
                         {feature.desc}
                       </p>
                     </CardContent>
@@ -110,8 +108,8 @@ export default function WhyChooseUs() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="mt-12"
         >
-          <Button className="px-8 py-6 text-lg rounded-full bg-gradient-to-r  from-orange-500 to-red-500 text-white shadow-lg hover:scale-105 transition-transform">
-            Design Your Pair ↓
+          <Button className="px-8 py-6 text-lg rounded-sm shadow-lg hover:scale-105 transition-transform">
+            Design Your Pair
           </Button>
         </motion.div>
       </div>

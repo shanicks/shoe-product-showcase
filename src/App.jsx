@@ -23,6 +23,23 @@ export default function App() {
             element={
               <div className="min-h-screen w-full bg-gradient-to-br from-[#6B2E0F] via-[#3A1608] to-[#000000] text-white overflow-hidden">
                 <Header />
+                <div
+                  className="
+                    fixed top-0 left-0
+                    text-white 
+                    text-[280px] sm:text-[260px]
+                    sm:translate-y-[30%] sm:translate-x-[28%]
+                    translate-y-[10%] -translate-x-[3%]
+                    font-bebas font-bold
+                    opacity-[0.03]
+                    pointer-events-none
+                    select-none
+                    z-10
+                  "
+                  style={{ letterSpacing: "55px" }}
+                >
+                  KIXORA
+                </div>
                 <Hero nextSectionRef={nextSectionRef} />
                 <FeaturedShoes ref={nextSectionRef} />
                 <WhyChooseUs />

@@ -251,7 +251,7 @@ export default function ShoeCanvas({
       /> */}
       {
         <motion.div
-          className="w-full h-[60vh] md:h-[90vh] cursor-grab active:cursor-grabbing"
+          className="w-full h-[60vh] md:h-[90vh]"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -298,7 +298,7 @@ export default function ShoeCanvas({
               {/* <Environment preset="studio" /> */}
             </Suspense>
 
-            <OrbitControls
+            {/* <OrbitControls
               // target={[60, 0, 40]}
               enabled={isMobile}
               ref={controlsRef}
@@ -312,7 +312,7 @@ export default function ShoeCanvas({
               onEnd={() => setInteracting(false)}
               minPolarAngle={Math.PI / 2.5}
               maxPolarAngle={Math.PI / 1.8}
-            />
+            /> */}
           </Canvas>
         </motion.div>
       }
