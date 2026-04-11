@@ -103,7 +103,7 @@ export default function Hero({ nextSectionRef }) {
         <h2 className="z-5 ml-7 sm:ml-20 mb-0 text-[#2F1005] text-white drop-shadow-lg sm:tracking-[26%] tracking-[10%] text-left ">
           Design your sneakers in your colors
         </h2>
-        <div className="z-5 flex flex-row gap-3 sm:gap-4 sm:ml-20 ml-7 mb-20 ">
+        <div className="z-5 flex flex-row gap-3 sm:gap-4 sm:ml-20 ml-7 mb-20 mr-7">
           <motion.button
             className={`
               mt-5
@@ -165,7 +165,7 @@ export default function Hero({ nextSectionRef }) {
         </div>
       </div>
       {/* Shoe Container */}
-      <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center pointer-events-none">
+      <div className="z-2 relative w-full h-[500px] md:h-[650px] flex items-center justify-center pointer-events-none">
         <ShoeCanvasLazy
           onHoverStart={() => setHoveringShoe(true)}
           onHoverEnd={() => setHoveringShoe(false)}

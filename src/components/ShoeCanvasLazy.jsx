@@ -298,9 +298,9 @@ export default function ShoeCanvas({
               {/* <Environment preset="studio" /> */}
             </Suspense>
 
-            {/* <OrbitControls
+            <OrbitControls
               // target={[60, 0, 40]}
-              enabled={isMobile}
+              enabled={true}
               ref={controlsRef}
               // target0={target}
               enableZoom={false}
@@ -312,7 +312,7 @@ export default function ShoeCanvas({
               onEnd={() => setInteracting(false)}
               minPolarAngle={Math.PI / 2.5}
               maxPolarAngle={Math.PI / 1.8}
-            /> */}
+            />
           </Canvas>
         </motion.div>
       }
